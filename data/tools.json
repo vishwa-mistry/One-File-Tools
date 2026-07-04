@@ -1200,6 +1200,27 @@
       "status": "live"
     },
     {
+      "id": "sql-to-mongodb-translator",
+      "name": "SQL to MongoDB Translator",
+      "shortDescription": "Translate standard SQL queries instantly into MongoDB Aggregation Pipeline JSON arrays.",
+      "longDescription": "## SQL to MongoDB Translator\n\nDevelopers migrating from relational databases to MongoDB often struggle to write complex NoSQL queries. This tool allows users to write standard SQL queries (including SELECT, WHERE, GROUP BY, ORDER BY, and LIMIT) and instantly translates them into the equivalent MongoDB Aggregation Pipeline JSON array.\n\n### Features\n\n- Write SQL in a clean editor with basic auto-formatting\n- Translates `SELECT/FROM` into `$project` stages\n- Translates `WHERE` conditions into `$match` stages\n- Translates `GROUP BY` into `$group` with basic aggregations (COUNT, SUM, AVG)\n- Translates `ORDER BY` into `$sort`\n- Translates `LIMIT` into `$limit`\n- Client-side parser ensuring privacy (no backend required)\n- Instantly copy the resulting JSON pipeline",
+      "category": "Developer Utilities",
+      "tags": [
+        "converter",
+        "database",
+        "mongodb",
+        "nosql",
+        "sql"
+      ],
+      "techStack": [
+        "CSS3",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Medium",
+      "status": "live"
+    },
+    {
       "id": "svg-optimizer",
       "name": "SVG Optimizer",
       "shortDescription": "Compress and optimize raw SVG code by removing unnecessary metadata, empty tags, and comments.",
