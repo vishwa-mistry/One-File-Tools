@@ -1179,6 +1179,28 @@
       "status": "live"
     },
     {
+      "id": "svg-optimizer",
+      "name": "SVG Optimizer",
+      "shortDescription": "Compress and optimize raw SVG code by removing unnecessary metadata, empty tags, and comments.",
+      "longDescription": "## SVG Optimizer\n\nA single-file tool to compress and optimize raw SVG code by removing unnecessary metadata, empty tags, and comments.\n\n### Features\n\n- Paste raw SVG code for instant optimization\n- Removes `<title>`, `<desc>`, `<!-- comments -->`, and empty tags\n- Live visual preview container to ensure SVG integrity\n- Instantly copy or download optimized minified SVG\n- Works completely offline locally in your browser",
+      "category": "image",
+      "tags": [
+        "compressor",
+        "image-tools",
+        "minify",
+        "optimizer",
+        "svg"
+      ],
+      "techStack": [
+        "CSS3",
+        "DOMParser",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Medium",
+      "status": "live"
+    },
+    {
       "id": "text-diff-viewer",
       "name": "Text Diff Viewer",
       "shortDescription": "Compare two blocks of text and see line-level and word-level differences, side-by-side or unified.",
