@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regex Playground — One File Tools</title>
+    <style>
+      /* ========================================
+       Reset & Base
+       ======================================== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        padding: 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+        background: #fafafa;
+        color: #1a1a1a;
+      }
+
+      /* ========================================
+       Dark Mode
+       ======================================== */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #0a0a0a;
+          color: #e5e5e5;
+        }
+      }
+
+      /* ========================================
+       Your styles here
+       ======================================== */
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eaeaea;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .card {
+          background: #171717;
+          border-color: #333;
+        }
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 1rem;
+        background: #fff;
+        color: inherit;
+      }
+      
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        input[type="text"],
+        textarea {
+          background: #262626;
+          border-color: #444;
+        }
+      }
+
+      .regex-input-wrapper {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .regex-input-wrapper .slash {
+        font-size: 1.5rem;
+        font-family: monospace;
+        color: #666;
+      }
+      
+      #regex-pattern {
+        flex: 1;
+      }
+
+      #regex-flags {
+        width: 100px;
+      }
+
+      .error-msg {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: none;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        .error-msg {
+          color: #ef4444;
+        }
+      }
+
+      /* Highlighting */
+      .highlight-container {
+        position: relative;
+        margin-top: 0.5rem;
+      }
+
+      .backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0.75rem;
+        font-family: monospace;
+        font-size: 1rem;
+        line-height: inherit;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        color: transparent;
+        pointer-events: none;
+        border: 1px solid transparent;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .highlight-container textarea {
+        position: relative;
+        z-index: 2;
+        background: transparent;
+      }
+
+      mark {
+        background-color: #fde047;
+        color: transparent;
+        border-radius: 2px;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        mark {
+          background-color: rgba(253, 224, 71, 0.4);
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-top: 1rem;
+      }
+
+      .btn:hover {
+        background: #1d4ed8;
+      }
+
+      .match-info {
+        font-size: 0.875rem;
+        color: #666;
+        margin-top: 0.5rem;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        .match-info {
+          color: #a3a3a3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Regex Playground</h1>
+      <p>Test regular expressions against custom text with live highlighting and replacement.</p>
+    </header>
+
+    <main>
+      <div class="container">
+        
+        <div class="card">
+          <label>Regular Expression</label>
+          <div class="regex-input-wrapper">
+            <span class="slash">/</span>
+            <input type="text" id="regex-pattern" placeholder="Enter pattern here..." value="[A-Z]\w+" autocomplete="off" spellcheck="false" />
+            <span class="slash">/</span>
+            <input type="text" id="regex-flags" placeholder="gmi" value="g" autocomplete="off" spellcheck="false" />
+          </div>
+          <div id="regex-error" class="error-msg"></div>
+          <button class="btn" id="copy-btn">Copy Regex</button>
+        </div>
+
+        <div class="card">
+          <label>Test String</label>
+          <div class="highlight-container">
+            <div class="backdrop" id="backdrop"></div>
+            <textarea id="test-string" placeholder="Type or paste your test text here..." spellcheck="false">Welcome to the Regex Playground. This is a Simple test String with some Capitalized Words.</textarea>
+          </div>
+          <div class="match-info" id="match-info">0 matches found.</div>
+        </div>
+
+        <div class="card">
+          <label>Replacement (Optional)</label>
+          <input type="text" id="replace-str" placeholder="Enter replacement text... (e.g. $1)" autocomplete="off" spellcheck="false" />
+          
+          <label style="margin-top: 1rem;">Replace Result</label>
+          <textarea id="replace-result" readonly placeholder="Result will appear here..."></textarea>
+        </div>
+
+      </div>
+    </main>
+
+    <footer>
+      <p style="margin-top: 2rem;">Part of <a href="https://github.com/praveenscience/One-File-Tools">One File Tools</a></p>
+    </footer>
+
+    <script>
+      const patternInput = document.getElementById('regex-pattern');
+      const flagsInput = document.getElementById('regex-flags');
+      const errorMsg = document.getElementById('regex-error');
+      
+      const testStringTextarea = document.getElementById('test-string');
+      const backdrop = document.getElementById('backdrop');
+      const matchInfo = document.getElementById('match-info');
+      
+      const replaceInput = document.getElementById('replace-str');
+      const replaceResult = document.getElementById('replace-result');
+      const copyBtn = document.getElementById('copy-btn');
+
+      // Scroll syncing for highlighting
+      testStringTextarea.addEventListener('scroll', () => {
+        backdrop.scrollTop = testStringTextarea.scrollTop;
+        backdrop.scrollLeft = testStringTextarea.scrollLeft;
+      });
+
+      function escapeHtml(unsafe) {
+        return unsafe
+             .replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;");
+      }
+
+      function updateRegex() {
+        const pattern = patternInput.value;
+        const flags = flagsInput.value;
+        const text = testStringTextarea.value;
+        const replacement = replaceInput.value;
+        
+        if (!pattern) {
+          errorMsg.style.display = 'none';
+          backdrop.innerHTML = escapeHtml(text);
+          matchInfo.textContent = '0 matches found.';
+          replaceResult.value = text;
+          return;
+        }
+
+        try {
+          const re = new RegExp(pattern, flags);
+          errorMsg.style.display = 'none';
+          
+          // Count matches
+          let matchCount = 0;
+          if (flags.includes('g')) {
+            const matches = text.match(re);
+            matchCount = matches ? matches.length : 0;
+          } else {
+            matchCount = re.test(text) ? 1 : 0;
+          }
+          matchInfo.textContent = `${matchCount} match${matchCount !== 1 ? 'es' : ''} found.`;
+
+          // Generate highlighted HTML
+          // We need a global regex to replace all instances for the backdrop highlighting
+          const globalFlags = flags.includes('g') ? flags : flags + 'g';
+          const globalRe = new RegExp(pattern, globalFlags);
+          
+          let highlightedText = escapeHtml(text).replace(globalRe, (match) => {
+             return `<mark>${match}</mark>`;
+          });
+          
+          // Fix trailing newline rendering issue in div
+          if (text.endsWith('\n')) {
+            highlightedText += ' ';
+          }
+          
+          backdrop.innerHTML = highlightedText;
+
+          // Replace logic
+          replaceResult.value = text.replace(re, replacement);
+
+        } catch (e) {
+          errorMsg.textContent = e.message;
+          errorMsg.style.display = 'block';
+          backdrop.innerHTML = escapeHtml(text);
+          matchInfo.textContent = 'Invalid regex.';
+          replaceResult.value = '';
+        }
+      }
+
+      // Event listeners
+      [patternInput, flagsInput, testStringTextarea, replaceInput].forEach(el => {
+        el.addEventListener('input', updateRegex);
+      });
+
+      // Resize backdrop when textarea is resized manually
+      new ResizeObserver(() => {
+         backdrop.style.width = testStringTextarea.offsetWidth + 'px';
+         backdrop.style.height = testStringTextarea.offsetHeight + 'px';
+      }).observe(testStringTextarea);
+
+      copyBtn.addEventListener('click', () => {
+         const reStr = `/${patternInput.value}/${flagsInput.value}`;
+         navigator.clipboard.writeText(reStr).then(() => {
+             const orig = copyBtn.textContent;
+             copyBtn.textContent = 'Copied!';
+             setTimeout(() => copyBtn.textContent = orig, 1500);
+         });
+      });
+
+      // Init
+      updateRegex();
+    </script>
+  </body>
+</html>
