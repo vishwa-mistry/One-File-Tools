@@ -342,8 +342,11 @@
           <button class="close-modal-btn" id="close-modal-icon">&times;</button>
         </div>
         <div class="video-container">
-          <!-- Placeholder YouTube Video (Can be replaced with actual walkthrough) -->
-          <iframe id="tutorial-video" src="https://www.youtube.com/embed/rhzKDrUiJVk" title="Regex Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <!-- Load local custom video (Ensure 'regex-playground-tutorial.mp4' is placed in this folder) -->
+          <video id="tutorial-video" controls autoplay muted style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            <source src="regex-playground-tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
         <div class="modal-footer">
           <button class="skip-btn" id="skip-modal-btn">Skip Video</button>
@@ -410,13 +413,14 @@
       const modal = document.getElementById('tutorial-modal');
       const closeIcon = document.getElementById('close-modal-icon');
       const skipBtn = document.getElementById('skip-modal-btn');
-      const videoIframe = document.getElementById('tutorial-video');
+      const videoPlayer = document.getElementById('tutorial-video');
 
       function closeModal() {
         modal.classList.remove('active');
-        // Stop video playback by resetting the iframe src
-        const currentSrc = videoIframe.src;
-        videoIframe.src = currentSrc;
+        // Stop video playback
+        if (videoPlayer) {
+          videoPlayer.pause();
+        }
         // Remember that user dismissed it
         localStorage.setItem('hasSeenTutorial', 'true');
       }
