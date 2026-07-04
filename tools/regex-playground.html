@@ -224,9 +224,133 @@
       body[data-theme="dark"] .match-info {
         color: #a3a3a3;
       }
+
+      /* ========================================
+       Video Modal
+       ======================================== */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 800px;
+        position: relative;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      }
+      
+      body[data-theme="dark"] .modal-content {
+        background: #171717;
+        color: #e5e5e5;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .modal-header h2 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+
+      .close-modal-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: inherit;
+        line-height: 1;
+      }
+
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #000;
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.5rem;
+      }
+
+      .skip-btn {
+        background: #e2e8f0;
+        color: #0f172a;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+      
+      body[data-theme="dark"] .skip-btn {
+        background: #333;
+        color: #e5e5e5;
+      }
+      
+      .skip-btn:hover {
+        background: #cbd5e1;
+      }
+      body[data-theme="dark"] .skip-btn:hover {
+        background: #444;
+      }
+
     </style>
   </head>
   <body>
+    <!-- Video Modal -->
+    <div class="modal-overlay" id="tutorial-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Welcome to Regex Playground</h2>
+          <button class="close-modal-btn" id="close-modal-icon">&times;</button>
+        </div>
+        <div class="video-container">
+          <!-- Placeholder YouTube Video (Can be replaced with actual walkthrough) -->
+          <iframe id="tutorial-video" src="https://www.youtube.com/embed/rhzKDrUiJVk" title="Regex Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="modal-footer">
+          <button class="skip-btn" id="skip-modal-btn">Skip Video</button>
+        </div>
+      </div>
+    </div>
+
     <header class="header-container">
       <div>
         <h1>Regex Playground</h1>
@@ -281,11 +405,32 @@
       </div>
     </main>
 
-    <footer>
-      <p style="margin-top: 2rem;">Part of <a href="https://github.com/praveenscience/One-File-Tools">One File Tools</a></p>
-    </footer>
-
     <script>
+      // Modal Logic
+      const modal = document.getElementById('tutorial-modal');
+      const closeIcon = document.getElementById('close-modal-icon');
+      const skipBtn = document.getElementById('skip-modal-btn');
+      const videoIframe = document.getElementById('tutorial-video');
+
+      function closeModal() {
+        modal.classList.remove('active');
+        // Stop video playback by resetting the iframe src
+        const currentSrc = videoIframe.src;
+        videoIframe.src = currentSrc;
+        // Remember that user dismissed it
+        localStorage.setItem('hasSeenTutorial', 'true');
+      }
+
+      closeIcon.addEventListener('click', closeModal);
+      skipBtn.addEventListener('click', closeModal);
+
+      // Auto-open modal on first visit
+      if (!localStorage.getItem('hasSeenTutorial')) {
+        setTimeout(() => {
+          modal.classList.add('active');
+        }, 500); // Slight delay for better UX
+      }
+
       // Theme Logic
       const themeToggleBtn = document.getElementById('theme-toggle');
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
