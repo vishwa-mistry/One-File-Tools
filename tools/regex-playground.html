@@ -24,26 +24,39 @@
         margin: 0 auto;
         background: #fafafa;
         color: #1a1a1a;
+        transition: background-color 0.3s, color 0.3s;
       }
 
       /* ========================================
-       Dark Mode
+       Dark Mode (Data Theme)
        ======================================== */
-      @media (prefers-color-scheme: dark) {
-        body {
-          background: #0a0a0a;
-          color: #e5e5e5;
-        }
+      body[data-theme="dark"] {
+        background: #0a0a0a;
+        color: #e5e5e5;
       }
 
       /* ========================================
        Your styles here
        ======================================== */
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: inherit;
+      }
+
       .container {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        margin-top: 2rem;
+        margin-top: 1rem;
       }
 
       .card {
@@ -52,13 +65,34 @@
         padding: 1.5rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         border: 1px solid #eaeaea;
+        transition: background-color 0.3s, border-color 0.3s;
       }
 
-      @media (prefers-color-scheme: dark) {
-        .card {
-          background: #171717;
-          border-color: #333;
-        }
+      body[data-theme="dark"] .card {
+        background: #171717;
+        border-color: #333;
+      }
+
+      /* Tutorial Section */
+      .tutorial-card {
+        border-left: 4px solid #2563eb;
+      }
+      .tutorial-card h2 {
+        margin-top: 0;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+      .tutorial-card ul {
+        margin-left: 1.5rem;
+      }
+      .tutorial-card code {
+        background: #f1f5f9;
+        padding: 0.1rem 0.3rem;
+        border-radius: 4px;
+        font-size: 0.85em;
+      }
+      body[data-theme="dark"] .tutorial-card code {
+        background: #262626;
       }
 
       label {
@@ -77,6 +111,7 @@
         font-size: 1rem;
         background: #fff;
         color: inherit;
+        transition: background-color 0.3s, border-color 0.3s;
       }
       
       textarea {
@@ -84,12 +119,10 @@
         min-height: 120px;
       }
 
-      @media (prefers-color-scheme: dark) {
-        input[type="text"],
-        textarea {
-          background: #262626;
-          border-color: #444;
-        }
+      body[data-theme="dark"] input[type="text"],
+      body[data-theme="dark"] textarea {
+        background: #262626;
+        border-color: #444;
       }
 
       .regex-input-wrapper {
@@ -119,10 +152,8 @@
         display: none;
       }
       
-      @media (prefers-color-scheme: dark) {
-        .error-msg {
-          color: #ef4444;
-        }
+      body[data-theme="dark"] .error-msg {
+        color: #ef4444;
       }
 
       /* Highlighting */
@@ -162,10 +193,8 @@
         border-radius: 2px;
       }
       
-      @media (prefers-color-scheme: dark) {
-        mark {
-          background-color: rgba(253, 224, 71, 0.4);
-        }
+      body[data-theme="dark"] mark {
+        background-color: rgba(253, 224, 71, 0.4);
       }
 
       .btn {
@@ -179,6 +208,7 @@
         font-size: 0.875rem;
         font-weight: 500;
         margin-top: 1rem;
+        transition: background-color 0.2s;
       }
 
       .btn:hover {
@@ -191,22 +221,34 @@
         margin-top: 0.5rem;
       }
       
-      @media (prefers-color-scheme: dark) {
-        .match-info {
-          color: #a3a3a3;
-        }
+      body[data-theme="dark"] .match-info {
+        color: #a3a3a3;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Regex Playground</h1>
-      <p>Test regular expressions against custom text with live highlighting and replacement.</p>
+    <header class="header-container">
+      <div>
+        <h1>Regex Playground</h1>
+        <p>Test regular expressions against custom text with live highlighting and replacement.</p>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">🌙</button>
     </header>
 
     <main>
       <div class="container">
         
+        <!-- Tutorial Section -->
+        <div class="card tutorial-card">
+          <h2>How to Use This Tool</h2>
+          <ul>
+            <li><strong>Write your regex:</strong> Enter your expression in the first input box. Do not wrap it in forward slashes.</li>
+            <li><strong>Add flags:</strong> Use the small box next to it to add Javascript flags like <code>g</code> (global), <code>i</code> (case-insensitive), or <code>m</code> (multiline).</li>
+            <li><strong>Test String:</strong> Paste the text you want to search through in the large textarea. Matches will be highlighted in yellow in real-time.</li>
+            <li><strong>Replacement (Optional):</strong> If you want to preview a <code>.replace()</code> operation, type a replacement string (using capture groups like <code>$1</code>, <code>$2</code> if needed). The result appears instantly at the bottom!</li>
+          </ul>
+        </div>
+
         <div class="card">
           <label>Regular Expression</label>
           <div class="regex-input-wrapper">
@@ -244,6 +286,29 @@
     </footer>
 
     <script>
+      // Theme Logic
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      let currentTheme = localStorage.getItem('theme');
+      
+      if (!currentTheme) {
+        currentTheme = prefersDark ? 'dark' : 'light';
+      }
+      
+      function setTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
+        themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', theme);
+        currentTheme = theme;
+      }
+      
+      setTheme(currentTheme);
+
+      themeToggleBtn.addEventListener('click', () => {
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+
+      // Regex Logic
       const patternInput = document.getElementById('regex-pattern');
       const flagsInput = document.getElementById('regex-flags');
       const errorMsg = document.getElementById('regex-error');
@@ -300,7 +365,6 @@
           matchInfo.textContent = `${matchCount} match${matchCount !== 1 ? 'es' : ''} found.`;
 
           // Generate highlighted HTML
-          // We need a global regex to replace all instances for the backdrop highlighting
           const globalFlags = flags.includes('g') ? flags : flags + 'g';
           const globalRe = new RegExp(pattern, globalFlags);
           
@@ -308,7 +372,6 @@
              return `<mark>${match}</mark>`;
           });
           
-          // Fix trailing newline rendering issue in div
           if (text.endsWith('\n')) {
             highlightedText += ' ';
           }
@@ -332,7 +395,6 @@
         el.addEventListener('input', updateRegex);
       });
 
-      // Resize backdrop when textarea is resized manually
       new ResizeObserver(() => {
          backdrop.style.width = testStringTextarea.offsetWidth + 'px';
          backdrop.style.height = testStringTextarea.offsetHeight + 'px';
