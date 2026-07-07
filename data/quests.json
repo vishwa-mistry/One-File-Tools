@@ -66,6 +66,30 @@
       "status": "live"
     },
     {
+      "id": "closure-chronicles",
+      "name": "Closure Chronicles",
+      "shortDescription": "Master JavaScript closures by solving interactive puzzles across 10 levels covering scope, lexical bindings, private variables, and the module pattern.",
+      "longDescription": "## Closure Chronicles\n\nA hands-on JavaScript quest that teaches closures, lexical scoping, and variable lifetimes through 10 interactive code puzzles.\n\n### Features\n- 10 progressively harder levels covering global, function, block, and lexical scope\n- Interactive click-to-select answers with instant feedback\n- Syntax-highlighted code blocks with a dark terminal aesthetic\n- Detailed explanations after each level\n- Hint system (costs one star)\n- Mistake counter and 3-star rating per level\n- Progress saved to localStorage\n- Achievement badges for milestones (Flawless Run, Pure Knowledge, Closure Master)\n- Final scorecard showing accuracy, mistakes, and completion time\n- Confetti celebration on completion",
+      "category": "js-fundamentals",
+      "tags": [
+        "closures",
+        "interactive",
+        "javascript",
+        "lexical-scope",
+        "puzzle",
+        "quest",
+        "scope"
+      ],
+      "techStack": [
+        "CSS3",
+        "HTML5",
+        "LocalStorage API",
+        "Vanilla JS"
+      ],
+      "difficulty": "Medium",
+      "status": "live"
+    },
+    {
       "id": "regex-golf",
       "name": "Regex Golf",
       "shortDescription": "Write the shortest regex to separate two sets of strings. 10 holes, par scoring, localStorage progress.",
