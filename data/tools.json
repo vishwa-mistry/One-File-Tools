@@ -2286,21 +2286,10 @@
     {
       "id": "css-animation-builder",
       "name": "CSS Animation Builder",
-      "shortDescription": "Visually create CSS animations and export keyframes without manually writing CSS.",
-      "longDescription": "## CSS Animation Builder\n\nAllow users to visually create CSS animations and export keyframes without manually writing CSS.",
-      "category": "css",
-      "tags": [
-        "css",
-        "animation",
-        "frontend"
-      ],
-      "techStack": [
-        "HTML5",
-        "CSS3",
-        "Vanilla JS"
-      ],
-      "difficulty": "Medium",
-      "status": "live"
+      "shortDescription": "Allow users to visually create CSS animations and export keyframes without manually writing CSS.",
+      "link": "/tools/css-animation-builder.html",
+      "icon": "fa-film",
+      "image": "/tools/css-animation-builder.png"
     }
   ]
 }
