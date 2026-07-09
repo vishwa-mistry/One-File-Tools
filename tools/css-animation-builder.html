@@ -421,12 +421,12 @@
             document.getElementById('val-iteration').textContent = iteration;
             document.getElementById('val-direction').textContent = direction;
 
-            const cssRule = \`animation: \${name} \${duration} \${timing} 0s \${iteration} \${direction} forwards;\`;
+            const cssRule = `animation: ${name} ${duration} ${timing} 0s ${iteration} ${direction} forwards;`;
             
             const target = document.getElementById('target');
             target.style.cssText = cssRule;
 
-            const keyframesCSS = \`@keyframes \${name} {\\n\${currentKeyframes}\\n}\`;
+            const keyframesCSS = `@keyframes ${name} {\n${currentKeyframes}\n}`;
             document.getElementById('dynamic-keyframes').textContent = keyframesCSS;
 
             renderCode(name, cssRule, keyframesCSS);
@@ -440,24 +440,24 @@
         }
 
         function renderCode(name, cssRule, keyframesCSS) {
-            let html = \`<span class="token-selector">.animated-element</span> {\\n\`;
-            html += \`  <span class="token-property">animation</span>: <span class="token-value">\${name} \${document.getElementById('animDuration').value}s \${document.getElementById('animTiming').value} \${document.getElementById('animIteration').value} \${document.getElementById('animDirection').value}</span>;\\n\`;
-            html += \`}\\n\\n\`;
+            let html = `<span class="token-selector">.animated-element</span> {\n`;
+            html += `  <span class="token-property">animation</span>: <span class="token-value">${name} ${document.getElementById('animDuration').value}s ${document.getElementById('animTiming').value} ${document.getElementById('animIteration').value} ${document.getElementById('animDirection').value}</span>;\n`;
+            html += `}\n\n`;
             
-            html += \`<span class="token-keyword">@keyframes</span> <span class="token-selector">\${name}</span> {\\n\`;
+            html += `<span class="token-keyword">@keyframes</span> <span class="token-selector">${name}</span> {\n`;
             
-            const lines = currentKeyframes.split('\\n');
+            const lines = currentKeyframes.split('\n');
             lines.forEach(line => {
                 if(line.trim() === '') return;
                 const parts = line.split('{');
                 if(parts.length > 1) {
-                    html += \`  <span class="token-value">\${parts[0].trim()}</span> { <span class="token-property">\${parts[1].replace('}', '').trim()}</span> }\\n\`;
+                    html += `  <span class="token-value">${parts[0].trim()}</span> { <span class="token-property">${parts[1].replace('}', '').trim()}</span> }\n`;
                 }
             });
-            html += \`}\`;
+            html += `}`;
 
             document.getElementById('code-output').innerHTML = html;
-            window.rawCode = \`.animated-element {\\n  \${cssRule}\\n}\\n\\n\${keyframesCSS}\`;
+            window.rawCode = `.animated-element {\n  ${cssRule}\n}\n\n${keyframesCSS}`;
         }
 
         function copyCode() {
