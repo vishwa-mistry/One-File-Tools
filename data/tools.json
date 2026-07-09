@@ -618,7 +618,7 @@
     {
       "id": "cron-expression-builder",
       "name": "Cron Expression Builder",
-      "shortDescription": "Build and customize cron schedules with presets, validation, explanations, and upcoming run previews.",
+      "shortDescription": "Build and customize cron schedules with presets, instant validation, explanations, and upcoming run previews.",
       "longDescription": "## Cron Expression Builder\n\nDesign cron schedules with an elegant interface, common presets, instant validation, human-readable explanations, and next-run previews.",
       "category": "utilities",
       "tags": [
@@ -1199,6 +1199,31 @@
         "CSS3",
         "Fetch API",
         "Google Fonts",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Medium",
+      "status": "live"
+    },
+    {
+      "id": "http-header-inspector-v2",
+      "name": "HTTP Header Inspector",
+      "shortDescription": "Inspect HTTP response headers, understand their purpose, and analyze security, caching, CORS, and performance information.",
+      "longDescription": "## HTTP Header Inspector\n\nInspect and analyze HTTP response headers from any URL or pasted raw headers. Learn what each header does through categorized explanations, identify security-related headers, review caching directives, and inspect CORS behavior.\n\n### Features\n\n- Fetch headers directly from a URL\n- Analyze pasted raw HTTP headers\n- Categorized header explanations (Security, CORS, Caching, Cookies, Content, Networking)\n- Search and filter headers instantly\n- Copy individual headers or all headers\n- Responsive design with keyboard accessibility\n- Works completely offline for pasted headers",
+      "category": "networking",
+      "tags": [
+        "api",
+        "caching",
+        "cors",
+        "developer-tools",
+        "headers",
+        "http",
+        "network",
+        "security"
+      ],
+      "techStack": [
+        "CSS3",
+        "Fetch API",
         "HTML5",
         "Vanilla JS"
       ],
@@ -2042,6 +2067,27 @@
       "techStack": [
         "CSS3",
         "Google Fonts",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Easy",
+      "status": "live"
+    },
+    {
+      "id": "target-grade-forecaster",
+      "name": "Target Grade Forecaster",
+      "shortDescription": "Calculate your current average and find out exactly what you need on the final.",
+      "longDescription": "## Target Grade & GPA Forecaster\n\nCalculate your current average and find out exactly what you need on the final exam to achieve your target grade.",
+      "category": "utilities",
+      "tags": [
+        "calculator",
+        "education",
+        "grades",
+        "student",
+        "university"
+      ],
+      "techStack": [
+        "CSS3",
         "HTML5",
         "Vanilla JS"
       ],
