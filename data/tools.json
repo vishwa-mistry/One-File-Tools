@@ -2240,6 +2240,24 @@
       ],
       "difficulty": "Easy",
       "status": "live"
+    },
+    {
+      "id": "visual-turing-machine",
+      "name": "Visual Turing Machine",
+      "shortDescription": "A compiler and visual simulator engine for Turing Machine rules.",
+      "longDescription": "## Visual Turing Machine\n\nSimulator for Turing Machine rules.",
+      "category": "utilities",
+      "tags": [
+        "turing",
+        "simulator"
+      ],
+      "techStack": [
+        "HTML5",
+        "CSS3",
+        "Vanilla JS"
+      ],
+      "difficulty": "Hard",
+      "status": "live"
     }
   ]
 }
