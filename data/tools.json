@@ -639,6 +639,14 @@
       "status": "live"
     },
     {
+      "id": "css-animation-builder",
+      "name": "CSS Animation Builder",
+      "shortDescription": "Allow users to visually create CSS animations and export keyframes without manually writing CSS.",
+      "link": "/tools/css-animation-builder.html",
+      "icon": "fa-film",
+      "image": "/tools/css-animation-builder.png"
+    },
+    {
       "id": "css-color-converter",
       "name": "CSS Color Converter",
       "shortDescription": "Convert between Hex, RGB, HSL, HSLA, and OKLCH color formats instantly with a visual picker.",
@@ -1199,6 +1207,31 @@
         "CSS3",
         "Fetch API",
         "Google Fonts",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Medium",
+      "status": "live"
+    },
+    {
+      "id": "http-header-inspector-v2",
+      "name": "HTTP Header Inspector",
+      "shortDescription": "Inspect HTTP response headers, understand their purpose, and analyze security, caching, CORS, and performance information.",
+      "longDescription": "## HTTP Header Inspector\n\nInspect and analyze HTTP response headers from any URL or pasted raw headers. Learn what each header does through categorized explanations, identify security-related headers, review caching directives, and inspect CORS behavior.\n\n### Features\n\n- Fetch headers directly from a URL\n- Analyze pasted raw HTTP headers\n- Categorized header explanations (Security, CORS, Caching, Cookies, Content, Networking)\n- Search and filter headers instantly\n- Copy individual headers or all headers\n- Responsive design with keyboard accessibility\n- Works completely offline for pasted headers",
+      "category": "networking",
+      "tags": [
+        "api",
+        "caching",
+        "cors",
+        "developer-tools",
+        "headers",
+        "http",
+        "network",
+        "security"
+      ],
+      "techStack": [
+        "CSS3",
+        "Fetch API",
         "HTML5",
         "Vanilla JS"
       ],
@@ -2049,6 +2082,48 @@
       "status": "live"
     },
     {
+      "id": "target-grade-forecaster",
+      "name": "Target Grade Forecaster",
+      "shortDescription": "Calculate your current average and find out exactly what you need on the final.",
+      "longDescription": "## Target Grade & GPA Forecaster\n\nCalculate your current average and find out exactly what you need on the final exam to achieve your target grade.",
+      "category": "utilities",
+      "tags": [
+        "calculator",
+        "education",
+        "grades",
+        "student",
+        "university"
+      ],
+      "techStack": [
+        "CSS3",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Easy",
+      "status": "live"
+    },
+    {
+      "id": "target-grade-forecaster",
+      "name": "Target Grade Forecaster",
+      "shortDescription": "Calculate your current average and find out exactly what you need on the final.",
+      "longDescription": "## Target Grade & GPA Forecaster\n\nCalculate your current average and find out exactly what you need on the final exam to achieve your target grade.",
+      "category": "utilities",
+      "tags": [
+        "calculator",
+        "education",
+        "grades",
+        "student",
+        "university"
+      ],
+      "techStack": [
+        "CSS3",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Easy",
+      "status": "live"
+    },
+    {
       "id": "text-diff-viewer",
       "name": "Text Diff Viewer",
       "shortDescription": "Compare two blocks of text and see line-level and word-level differences, side-by-side or unified.",
@@ -2213,6 +2288,24 @@
       "status": "live"
     },
     {
+      "id": "visual-turing-machine",
+      "name": "Visual Turing Machine",
+      "shortDescription": "A compiler and visual simulator engine for Turing Machine rules (State / Read / Write / Move / Next).",
+      "longDescription": "## Visual Turing Machine\n\nSimulator for Turing Machine rules.",
+      "category": "utilities",
+      "tags": [
+        "simulator",
+        "turing"
+      ],
+      "techStack": [
+        "CSS3",
+        "HTML5",
+        "Vanilla JS"
+      ],
+      "difficulty": "Hard",
+      "status": "live"
+    },
+    {
       "id": "word-character-counter",
       "name": "Word / Character Counter",
       "shortDescription": "Real-time word, character, and sentence counter for text of any length.",
@@ -2261,35 +2354,6 @@
       ],
       "difficulty": "Easy",
       "status": "live"
-    },
-    {
-      "id": "target-grade-forecaster",
-      "name": "Target Grade Forecaster",
-      "shortDescription": "Calculate your current average and find out exactly what you need on the final.",
-      "longDescription": "## Target Grade & GPA Forecaster\n\nCalculate your current average and find out exactly what you need on the final exam to achieve your target grade.",
-      "category": "utilities",
-      "tags": [
-        "education",
-        "student",
-        "calculator",
-        "grades",
-        "university"
-      ],
-      "techStack": [
-        "HTML5",
-        "CSS3",
-        "Vanilla JS"
-      ],
-      "difficulty": "Easy",
-      "status": "live"
-    },
-    {
-      "id": "css-animation-builder",
-      "name": "CSS Animation Builder",
-      "shortDescription": "Allow users to visually create CSS animations and export keyframes without manually writing CSS.",
-      "link": "/tools/css-animation-builder.html",
-      "icon": "fa-film",
-      "image": "/tools/css-animation-builder.png"
     }
   ]
 }
