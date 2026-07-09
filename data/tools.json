@@ -618,7 +618,7 @@
     {
       "id": "cron-expression-builder",
       "name": "Cron Expression Builder",
-      "shortDescription": "Build and customize cron schedules with presets, validation, explanations, and upcoming run previews.",
+      "shortDescription": "Build and customize cron schedules with presets, instant validation, explanations, and upcoming run previews.",
       "longDescription": "## Cron Expression Builder\n\nDesign cron schedules with an elegant interface, common presets, instant validation, human-readable explanations, and next-run previews.",
       "category": "utilities",
       "tags": [
