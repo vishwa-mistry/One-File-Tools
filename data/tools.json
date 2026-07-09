@@ -2240,6 +2240,27 @@
       ],
       "difficulty": "Easy",
       "status": "live"
+    },
+    {
+      "id": "target-grade-forecaster",
+      "name": "Target Grade Forecaster",
+      "shortDescription": "Calculate your current average and find out exactly what you need on the final.",
+      "longDescription": "## Target Grade & GPA Forecaster\n\nCalculate your current average and find out exactly what you need on the final exam to achieve your target grade.",
+      "category": "utilities",
+      "tags": [
+        "education",
+        "student",
+        "calculator",
+        "grades",
+        "university"
+      ],
+      "techStack": [
+        "HTML5",
+        "CSS3",
+        "Vanilla JS"
+      ],
+      "difficulty": "Easy",
+      "status": "live"
     }
   ]
 }
