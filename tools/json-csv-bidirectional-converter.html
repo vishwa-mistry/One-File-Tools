@@ -339,6 +339,7 @@
                 <option value="\t">Tab</option>
                 <option value="|">Pipe (|)</option>
             </select>
+            <button class="action-button" style="margin-left: auto; color: var(--error-color); border-color: var(--error-color);" onclick="clearAll()">Clear All</button>
         </div>
 
         <div class="panels">
@@ -458,6 +459,14 @@
         function getDelimiter() {
             let val = delimiterSelect.value;
             return val === '\\t' ? '\t' : val;
+        }
+
+        function clearAll() {
+            jsonInput.value = '';
+            csvInput.value = '';
+            clearErrors();
+            updateLineNumbers(jsonInput, jsonLines);
+            updateLineNumbers(csvInput, csvLines);
         }
 
         function convertJsonToCsv() {
