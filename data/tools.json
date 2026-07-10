@@ -20,55 +20,55 @@
     {
       "id": "accessibility",
       "name": "Accessibility",
-      "icon": "♿",
+      "icon": "\u267f",
       "description": "Contrast checkers, heading structure, ARIA references"
     },
     {
       "id": "browser-network",
       "name": "Browser & Network",
-      "icon": "🌐",
+      "icon": "\ud83c\udf10",
       "description": "User agents, viewport info, cookies, and headers"
     },
     {
       "id": "color",
       "name": "Color Tools",
-      "icon": "🌈",
+      "icon": "\ud83c\udf08",
       "description": "Pickers, contrast checkers, palettes, and converters"
     },
     {
       "id": "css",
       "name": "CSS Tools",
-      "icon": "🎨",
+      "icon": "\ud83c\udfa8",
       "description": "Shadows, grids, flexbox, gradients, and generators"
     },
     {
       "id": "utilities",
       "name": "Developer Utilities",
-      "icon": "🛠️",
+      "icon": "\ud83d\udee0\ufe0f",
       "description": "UUIDs, hashes, regex, cron, passwords, and QR codes"
     },
     {
       "id": "image",
       "name": "Image Tools",
-      "icon": "🖼️",
+      "icon": "\ud83d\uddbc\ufe0f",
       "description": "Dimensions, converters, SVG, favicons, and metadata"
     },
     {
       "id": "json-api",
       "name": "JSON & API",
-      "icon": "🔗",
+      "icon": "\ud83d\udd17",
       "description": "Formatters, JWT decoders, URL encoders, and curl builders"
     },
     {
       "id": "text",
       "name": "Text & Content",
-      "icon": "📝",
+      "icon": "\ud83d\udcdd",
       "description": "Counters, converters, diffs, and Markdown preview"
     },
     {
       "id": "web-seo",
       "name": "Web & SEO",
-      "icon": "🌐",
+      "icon": "\ud83c\udf10",
       "description": "Meta tags, OG previews, sitemaps, and SEO utilities"
     }
   ],
@@ -155,7 +155,7 @@
       "id": "alt-text-helper",
       "name": "Alt Text Helper",
       "shortDescription": "Draft image alt text and get instant feedback on whether it's clear, concise, and accessible.",
-      "longDescription": "## Alt Text Helper\n\nPreview an image locally, draft its alt text, and get instant guidance on whether the description is too vague, too long, repetitive, or missing detail — with a scaffold to help you start. Runs fully offline.\n\n### Features\n\n- Upload or drag-and-drop an image to preview it locally (never uploaded)\n- Insert a guided fill-in scaffold to start a description\n- Flags common issues: too vague, too long, repetitive, redundant \"image of\" openers, unfilled placeholders, and filenames\n- Live character counter with screen-reader-friendly length guidance\n- Tips for writing accessible, context-aware alt text\n- Copy the final alt text to the clipboard\n- Clear and start over with one click\n- Fully responsive, keyboard accessible, and works offline",
+      "longDescription": "## Alt Text Helper\n\nPreview an image locally, draft its alt text, and get instant guidance on whether the description is too vague, too long, repetitive, or missing detail \u2014 with a scaffold to help you start. Runs fully offline.\n\n### Features\n\n- Upload or drag-and-drop an image to preview it locally (never uploaded)\n- Insert a guided fill-in scaffold to start a description\n- Flags common issues: too vague, too long, repetitive, redundant \"image of\" openers, unfilled placeholders, and filenames\n- Live character counter with screen-reader-friendly length guidance\n- Tips for writing accessible, context-aware alt text\n- Copy the final alt text to the clipboard\n- Clear and start over with one click\n- Fully responsive, keyboard accessible, and works offline",
       "category": "accessibility",
       "tags": [
         "a11y",
@@ -297,7 +297,7 @@
       "id": "base64-image-converter",
       "name": "Base64 Image Converter",
       "shortDescription": "Convert images to Base64 data URIs, or decode Base64 strings back into viewable images.",
-      "longDescription": "## Base64 Image Converter\n\nConvert an image to a Base64 data URI, or decode a Base64 string / data URI back into a viewable image — entirely offline, with no upload.\n\n### Features\n\n- Encode: upload or drag-and-drop an image to get its Base64 data URI\n- Copy the Base64 string or a ready-to-use CSS `url()` value\n- Decode: paste a data URI or raw Base64 to preview and download the image\n- Live preview with file size and encoded length shown\n- Clear/reset either panel independently\n- Fully responsive, keyboard accessible, and works offline",
+      "longDescription": "## Base64 Image Converter\n\nConvert an image to a Base64 data URI, or decode a Base64 string / data URI back into a viewable image \u2014 entirely offline, with no upload.\n\n### Features\n\n- Encode: upload or drag-and-drop an image to get its Base64 data URI\n- Copy the Base64 string or a ready-to-use CSS `url()` value\n- Decode: paste a data URI or raw Base64 to preview and download the image\n- Live preview with file size and encoded length shown\n- Clear/reset either panel independently\n- Fully responsive, keyboard accessible, and works offline",
       "category": "image",
       "tags": [
         "base64",
@@ -550,7 +550,7 @@
       "id": "color-palette-generator",
       "name": "Color Palette Generator",
       "shortDescription": "Generate beautiful random color combinations for designers and frontend developers.",
-      "longDescription": "## Color Palette Generator\n\nA modern tool that creates beautiful color combinations for designers and frontend developers. Press spacebar to rapidly generate new palettes.\n\n### Features\n\n- Generate 5-color palettes instantly\n- Lock individual colors (🔒/🔓) while regenerating the rest\n- Click to instantly copy HEX codes to your clipboard\n- Export as CSS root variables\n- Export as a JSON array file\n- Fully responsive layout for mobile testing",
+      "longDescription": "## Color Palette Generator\n\nA modern tool that creates beautiful color combinations for designers and frontend developers. Press spacebar to rapidly generate new palettes.\n\n### Features\n\n- Generate 5-color palettes instantly\n- Lock individual colors (\ud83d\udd12/\ud83d\udd13) while regenerating the rest\n- Click to instantly copy HEX codes to your clipboard\n- Export as CSS root variables\n- Export as a JSON array file\n- Fully responsive layout for mobile testing",
       "category": "color",
       "tags": [
         "color",
@@ -622,7 +622,7 @@
       "id": "commit-message-generator",
       "name": "Commit Message Generator",
       "shortDescription": "Build Conventional Commits-formatted commit messages with live preview and validation.",
-      "longDescription": "## Commit Message Generator\n\nBuild a properly formatted commit message following the Conventional Commits specification. Choose a type, optional scope, description, body, and footer — including breaking-change notes — with a live preview as you type.\n\n### Features\n\n- Full set of Conventional Commits types (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)\n- Plain-English explanation and a clickable example for each type\n- Optional scope, body, and footer sections\n- BREAKING CHANGE footer generation with the `!` header marker\n- Live preview that updates as fields change\n- Character counter for the subject line (recommended ≤50 characters)\n- Validation against common Conventional Commits mistakes\n- One-click copy to the clipboard\n- Clear/reset the form with a single click\n- Fully responsive, keyboard accessible, and works entirely offline",
+      "longDescription": "## Commit Message Generator\n\nBuild a properly formatted commit message following the Conventional Commits specification. Choose a type, optional scope, description, body, and footer \u2014 including breaking-change notes \u2014 with a live preview as you type.\n\n### Features\n\n- Full set of Conventional Commits types (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)\n- Plain-English explanation and a clickable example for each type\n- Optional scope, body, and footer sections\n- BREAKING CHANGE footer generation with the `!` header marker\n- Live preview that updates as fields change\n- Character counter for the subject line (recommended \u226450 characters)\n- Validation against common Conventional Commits mistakes\n- One-click copy to the clipboard\n- Clear/reset the form with a single click\n- Fully responsive, keyboard accessible, and works entirely offline",
       "category": "utilities",
       "tags": [
         "commit",
@@ -741,7 +741,7 @@
       "id": "css-easing-visualizer",
       "name": "CSS Easing Visualizer",
       "shortDescription": "Compare multiple CSS easing curves side-by-side on a shared graph and in an animated race preview.",
-      "longDescription": "## CSS Easing Visualizer\n\nCompare multiple CSS easing curves side-by-side — see their shape on a shared graph and watch them race in an animated preview, so you can pick the right motion feel by comparison rather than editing one curve in isolation.\n\n### Features\n\n- Add and remove multiple curves (named presets or custom cubic-bezier values)\n- Shared, color-coded SVG graph plotting each curve's progress over time\n- Animated race track with one ball per curve, driven by the Web Animations API\n- Adjustable shared duration for a fair comparison\n- Legend showing each curve's resolved CSS easing value\n- Runs completely offline",
+      "longDescription": "## CSS Easing Visualizer\n\nCompare multiple CSS easing curves side-by-side \u2014 see their shape on a shared graph and watch them race in an animated preview, so you can pick the right motion feel by comparison rather than editing one curve in isolation.\n\n### Features\n\n- Add and remove multiple curves (named presets or custom cubic-bezier values)\n- Shared, color-coded SVG graph plotting each curve's progress over time\n- Animated race track with one ball per curve, driven by the Web Animations API\n- Adjustable shared duration for a fair comparison\n- Legend showing each curve's resolved CSS easing value\n- Runs completely offline",
       "category": "css",
       "tags": [
         "animation",
@@ -766,7 +766,7 @@
       "id": "css-grid-generator",
       "name": "CSS Grid Generator",
       "shortDescription": "Build CSS Grid layouts visually with configurable columns, rows, gap, and sizing options.",
-      "longDescription": "## CSS Grid Generator\n\nA visual CSS Grid layout builder for developers and designers.\n\n### Features\n\n- Configurable columns (1–12) and rows (1–8) via sliders\n- Adjustable gap size with live preview\n- Column sizing modes: Equal (1fr), Auto, Responsive (minmax), Max-content\n- Row sizing modes: Equal (1fr), Auto, Min-content, Max-content\n- Live grid preview with numbered cells\n- One-click copy of generated CSS code\n- Responsive, mobile-friendly design\n- Works completely offline",
+      "longDescription": "## CSS Grid Generator\n\nA visual CSS Grid layout builder for developers and designers.\n\n### Features\n\n- Configurable columns (1\u201312) and rows (1\u20138) via sliders\n- Adjustable gap size with live preview\n- Column sizing modes: Equal (1fr), Auto, Responsive (minmax), Max-content\n- Row sizing modes: Equal (1fr), Auto, Min-content, Max-content\n- Live grid preview with numbered cells\n- One-click copy of generated CSS code\n- Responsive, mobile-friendly design\n- Works completely offline",
       "category": "css",
       "tags": [
         "css",
@@ -900,7 +900,7 @@
       "id": "favicon-generator",
       "name": "Favicon Generator",
       "shortDescription": "Generate a complete favicon pack and integration tags from any image, offline.",
-      "longDescription": "## Favicon Generator\n\nA client-side tool that turns any image into a full favicon pack — no server, no upload.\n\n### Features\n\n- Generates 7 sizes (16, 32, 48, 64, 180, 192, 512px)\n- Center-crop auto-resize via Canvas\n- Live preview grid with individual downloads\n- Ready-to-paste HTML `<link>` tags\n- One-click ZIP export of the full pack\n- Works completely offline",
+      "longDescription": "## Favicon Generator\n\nA client-side tool that turns any image into a full favicon pack \u2014 no server, no upload.\n\n### Features\n\n- Generates 7 sizes (16, 32, 48, 64, 180, 192, 512px)\n- Center-crop auto-resize via Canvas\n- Live preview grid with individual downloads\n- Ready-to-paste HTML `<link>` tags\n- One-click ZIP export of the full pack\n- Works completely offline",
       "category": "utilities",
       "tags": [
         "developer-tools",
@@ -922,7 +922,7 @@
       "id": "flexbox-playground",
       "name": "Flexbox Playground",
       "shortDescription": "Experiment with Flexbox properties visually and copy the generated CSS.",
-      "longDescription": "## Flexbox Playground\n\nA visual tool for experimenting with CSS Flexbox layouts in real time.\n\n### Features\n\n- Configure flex-direction, justify-content, align-items, align-content, flex-wrap, and gap\n- Live preview with configurable item count\n- Copy generated CSS to clipboard\n- Responsive layout — works on desktop and mobile\n- Dark mode via prefers-color-scheme",
+      "longDescription": "## Flexbox Playground\n\nA visual tool for experimenting with CSS Flexbox layouts in real time.\n\n### Features\n\n- Configure flex-direction, justify-content, align-items, align-content, flex-wrap, and gap\n- Live preview with configurable item count\n- Copy generated CSS to clipboard\n- Responsive layout \u2014 works on desktop and mobile\n- Dark mode via prefers-color-scheme",
       "category": "css",
       "tags": [
         "css",
@@ -1008,7 +1008,7 @@
       "id": "github-token-validator-glassmorphism",
       "name": "GitHub Token Validator (Glassmorphism)",
       "shortDescription": "Glassmorphism-themed GitHub Token Validator tool that allows users to validate GitHub Personal Access Tokens directly in the browser.",
-      "longDescription": "## GitHub Token Validator (Glassmorphism)\n\nA Glassmorphism-themed GitHub token validator that checks Personal Access Tokens against the GitHub API.\n\n### Features\n\n- Glassmorphism-style UI with command-line aesthetics\n- Validates GitHub Personal Access Tokens (classic, fine-grained, or OAuth)\n- Displays user identity, scopes, and token metadata\n- Real-time validation with clear status indicators\n- Works in the browser — no server required",
+      "longDescription": "## GitHub Token Validator (Glassmorphism)\n\nA Glassmorphism-themed GitHub token validator that checks Personal Access Tokens against the GitHub API.\n\n### Features\n\n- Glassmorphism-style UI with command-line aesthetics\n- Validates GitHub Personal Access Tokens (classic, fine-grained, or OAuth)\n- Displays user identity, scopes, and token metadata\n- Real-time validation with clear status indicators\n- Works in the browser \u2014 no server required",
       "category": "utilities",
       "tags": [
         "github",
@@ -1050,7 +1050,7 @@
       "id": "github-token-validator-terminal",
       "name": "GitHub Token Validator (Terminal)",
       "shortDescription": "Validate GitHub Personal Access Tokens with a terminal-style UI that displays user identity and scopes.",
-      "longDescription": "## GitHub Token Validator (Terminal)\n\nA terminal-themed GitHub token validator that checks Personal Access Tokens against the GitHub API.\n\n### Features\n\n- Terminal-style UI with command-line aesthetics\n- Validates GitHub Personal Access Tokens (classic, fine-grained, or OAuth)\n- Displays user identity, scopes, and token metadata\n- Real-time validation with clear status indicators\n- Works in the browser — no server required",
+      "longDescription": "## GitHub Token Validator (Terminal)\n\nA terminal-themed GitHub token validator that checks Personal Access Tokens against the GitHub API.\n\n### Features\n\n- Terminal-style UI with command-line aesthetics\n- Validates GitHub Personal Access Tokens (classic, fine-grained, or OAuth)\n- Displays user identity, scopes, and token metadata\n- Real-time validation with clear status indicators\n- Works in the browser \u2014 no server required",
       "category": "utilities",
       "tags": [
         "github",
@@ -1163,7 +1163,7 @@
       "id": "gradient-builder",
       "name": "Gradient Builder",
       "shortDescription": "Visually build linear or radial CSS gradients with multiple color stops and copy-ready CSS.",
-      "longDescription": "## Gradient Builder\n\nVisually create and customize CSS gradients. Add multiple color stops, drag them to adjust position, switch between linear and radial gradients, and instantly preview the result as production-ready CSS.\n\n### Features\n\n- Linear and radial gradients\n- Add, remove, reorder, and edit multiple color stops\n- Drag color stops on a visual track to adjust position\n- Linear angle (0-360°) with preset directions\n- Radial shape (circle/ellipse) and position\n- Live preview updates instantly with every change\n- Generates both `background` and `background-image` CSS\n- One-click copy or download of the generated CSS\n- Fully responsive, keyboard accessible, and works entirely offline",
+      "longDescription": "## Gradient Builder\n\nVisually create and customize CSS gradients. Add multiple color stops, drag them to adjust position, switch between linear and radial gradients, and instantly preview the result as production-ready CSS.\n\n### Features\n\n- Linear and radial gradients\n- Add, remove, reorder, and edit multiple color stops\n- Drag color stops on a visual track to adjust position\n- Linear angle (0-360\u00b0) with preset directions\n- Radial shape (circle/ellipse) and position\n- Live preview updates instantly with every change\n- Generates both `background` and `background-image` CSS\n- One-click copy or download of the generated CSS\n- Fully responsive, keyboard accessible, and works entirely offline",
       "category": "color",
       "tags": [
         "color",
@@ -1282,7 +1282,7 @@
       "id": "http-header-inspector",
       "name": "HTTP Header Inspector",
       "shortDescription": "Send a request to any URL and inspect its HTTP response headers, status code, and timing.",
-      "longDescription": "## HTTP Header Inspector\n\nSend a request to any URL and inspect the response — status code, timing, content type, and all exposed response headers. Useful for debugging caching, security headers, and CORS behavior without opening browser dev tools.\n\n### Features\n\n- URL input with GET / HEAD method selector\n- Status code, response time, and content type shown as status pills\n- Full response headers table, alphabetically sorted\n- Clear note explaining CORS-limited header visibility for cross-origin requests\n- Copy headers as plain text\n- Download the result as JSON\n- Runs entirely client-side",
+      "longDescription": "## HTTP Header Inspector\n\nSend a request to any URL and inspect the response \u2014 status code, timing, content type, and all exposed response headers. Useful for debugging caching, security headers, and CORS behavior without opening browser dev tools.\n\n### Features\n\n- URL input with GET / HEAD method selector\n- Status code, response time, and content type shown as status pills\n- Full response headers table, alphabetically sorted\n- Clear note explaining CORS-limited header visibility for cross-origin requests\n- Copy headers as plain text\n- Download the result as JSON\n- Runs entirely client-side",
       "category": "browser-network",
       "tags": [
         "cors",
@@ -1352,7 +1352,7 @@
       "id": "image-dimension-checker",
       "name": "Image Dimension Checker",
       "shortDescription": "Inspect an image's width, height, aspect ratio, orientation, size, format, and megapixels locally.",
-      "longDescription": "## Image Dimension Checker\n\nInspect the dimensions and basic properties of any image instantly. Upload or drag in an image to see its width, height, aspect ratio, orientation, file size, format, and megapixel count — all processed locally with nothing uploaded.\n\n### Features\n\n- Upload via file picker or drag-and-drop\n- Width and height in pixels\n- Aspect ratio in simplified and decimal forms\n- Orientation detection (Landscape, Portrait, Square)\n- File size and image format\n- Total megapixel count\n- Live image preview\n- Copy image info to the clipboard\n- Clear and reset with one click\n- Fully responsive, keyboard accessible, and works offline",
+      "longDescription": "## Image Dimension Checker\n\nInspect the dimensions and basic properties of any image instantly. Upload or drag in an image to see its width, height, aspect ratio, orientation, file size, format, and megapixel count \u2014 all processed locally with nothing uploaded.\n\n### Features\n\n- Upload via file picker or drag-and-drop\n- Width and height in pixels\n- Aspect ratio in simplified and decimal forms\n- Orientation detection (Landscape, Portrait, Square)\n- File size and image format\n- Total megapixel count\n- Live image preview\n- Copy image info to the clipboard\n- Clear and reset with one click\n- Fully responsive, keyboard accessible, and works offline",
       "category": "image",
       "tags": [
         "aspect-ratio",
@@ -1508,8 +1508,8 @@
     {
       "id": "jwt-decoder",
       "name": "JWT Decoder",
-      "shortDescription": "Decode and inspect JSON Web Tokens — header, payload, claims, and expiry — entirely in your browser.",
-      "longDescription": "## JWT Decoder\n\nA clean, offline JWT inspector that decodes any JSON Web Token and breaks it down into its three parts with syntax highlighting, standard claim parsing, and expiry detection.\n\n### Features\n\n- Colour-coded token structure (header / payload / signature)\n- Syntax-highlighted JSON for header and payload\n- Standard claims table (iss, sub, aud, exp, nbf, iat, jti) with human-readable timestamps\n- Expiry detection — shows Valid, Expired, or Decoded status badge\n- Copy individual parts (header JSON, payload JSON, signature) or all as combined JSON\n- Auto-decode on paste — no button click needed\n- Works completely offline — nothing leaves your browser",
+      "shortDescription": "Decode and inspect JSON Web Tokens \u2014 header, payload, claims, and expiry \u2014 entirely in your browser.",
+      "longDescription": "## JWT Decoder\n\nA clean, offline JWT inspector that decodes any JSON Web Token and breaks it down into its three parts with syntax highlighting, standard claim parsing, and expiry detection.\n\n### Features\n\n- Colour-coded token structure (header / payload / signature)\n- Syntax-highlighted JSON for header and payload\n- Standard claims table (iss, sub, aud, exp, nbf, iat, jti) with human-readable timestamps\n- Expiry detection \u2014 shows Valid, Expired, or Decoded status badge\n- Copy individual parts (header JSON, payload JSON, signature) or all as combined JSON\n- Auto-decode on paste \u2014 no button click needed\n- Works completely offline \u2014 nothing leaves your browser",
       "category": "json-api",
       "tags": [
         "auth",
@@ -1639,7 +1639,7 @@
       "id": "open-graph-checker",
       "name": "Open Graph Checker",
       "shortDescription": "Validate Open Graph tags from any public URL with social previews, health score, and JSON export.",
-      "longDescription": "## Open Graph Checker\n\nFetch and analyze Open Graph metadata from any public URL with tri-proxy fallback, live social previews for Facebook, Twitter/X, and LinkedIn, and actionable recommendations.\n\n### Features\n\n- Tri-proxy CORS fallback for maximum compatibility\n- Social previews for Facebook, Twitter/X, and LinkedIn\n- Weighted OG health score (0–100) with grade\n- Tag-by-tag validation checklist with recommendations\n- Raw extracted meta tag table\n- Copy plain-text report or export full JSON\n- Dark/light theme with system preference\n- Works completely offline UI, fetches on demand",
+      "longDescription": "## Open Graph Checker\n\nFetch and analyze Open Graph metadata from any public URL with tri-proxy fallback, live social previews for Facebook, Twitter/X, and LinkedIn, and actionable recommendations.\n\n### Features\n\n- Tri-proxy CORS fallback for maximum compatibility\n- Social previews for Facebook, Twitter/X, and LinkedIn\n- Weighted OG health score (0\u2013100) with grade\n- Tag-by-tag validation checklist with recommendations\n- Raw extracted meta tag table\n- Copy plain-text report or export full JSON\n- Dark/light theme with system preference\n- Works completely offline UI, fetches on demand",
       "category": "web-seo",
       "tags": [
         "analyzer",
@@ -1763,7 +1763,7 @@
       "id": "password-generator",
       "name": "Password Generator",
       "shortDescription": "Generate highly secure, cryptographic random passwords instantly. 100% offline, privacy guaranteed.",
-      "longDescription": "## Password Generator\n\nA secure, client-side password generator that creates strong, random passwords. It runs entirely offline in the browser, ensuring that no passwords are ever sent over a network or stored on a server.\n\n### Features\n\n- Interactive slider to choose password length (e.g., 4 to 64 characters)\n- Toggle options for Uppercase, Lowercase, Numbers, and Symbols\n- **New:** Option to exclude ambiguous characters (e.g., i, l, 1, L, o, 0, O) to improve readability\n- Real-time password strength indicator based on entropy\n- \"One-click copy\" to instantly copy the generated password to the clipboard\n- 100% offline and secure—runs entirely in the browser using the native Web Crypto API (`crypto.getRandomValues`) for cryptographic randomness",
+      "longDescription": "## Password Generator\n\nA secure, client-side password generator that creates strong, random passwords. It runs entirely offline in the browser, ensuring that no passwords are ever sent over a network or stored on a server.\n\n### Features\n\n- Interactive slider to choose password length (e.g., 4 to 64 characters)\n- Toggle options for Uppercase, Lowercase, Numbers, and Symbols\n- **New:** Option to exclude ambiguous characters (e.g., i, l, 1, L, o, 0, O) to improve readability\n- Real-time password strength indicator based on entropy\n- \"One-click copy\" to instantly copy the generated password to the clipboard\n- 100% offline and secure\u2014runs entirely in the browser using the native Web Crypto API (`crypto.getRandomValues`) for cryptographic randomness",
       "category": "utilities",
       "tags": [
         "generator",
@@ -1831,7 +1831,7 @@
       "id": "qr-code-generator",
       "name": "QR Code Generator",
       "shortDescription": "Instantly generate customizable, high-quality QR codes offline.",
-      "longDescription": "## QR Code Generator\n\nA client-side QR Code Generator that allows users to instantly convert text, URLs, or data into high-quality QR codes. It runs completely offline in the browser.\n\n### Features\n\n- Instant, real-time generation as the user types\n- Input fields for standard Text or URLs\n- Options to customize the QR code (e.g., Foreground color, Background color, and Error Correction Level)\n- Ability to download the generated QR code as a PNG image\n- 100% offline—no data is sent to external servers",
+      "longDescription": "## QR Code Generator\n\nA client-side QR Code Generator that allows users to instantly convert text, URLs, or data into high-quality QR codes. It runs completely offline in the browser.\n\n### Features\n\n- Instant, real-time generation as the user types\n- Input fields for standard Text or URLs\n- Options to customize the QR code (e.g., Foreground color, Background color, and Error Correction Level)\n- Ability to download the generated QR code as a PNG image\n- 100% offline\u2014no data is sent to external servers",
       "category": "utilities",
       "tags": [
         "developer-tools",
@@ -1921,9 +1921,9 @@
     },
     {
       "id": "regex-tester",
-      "name": "Regexa — Pattern Workbench",
+      "name": "Regexa \u2014 Pattern Workbench",
       "shortDescription": "A polished regex testing workbench with live matching, flag toggles, and match group inspection.",
-      "longDescription": "## Regexa — Pattern Workbench\n\nAn advanced regex testing tool with a developer-focused UI.\n\n### Features\n\n- Live regex matching with highlighting\n- Flag toggles (g, i, m, s, u)\n- Match group inspection\n- JetBrains Mono typography\n- Dark-themed workbench UI",
+      "longDescription": "## Regexa \u2014 Pattern Workbench\n\nAn advanced regex testing tool with a developer-focused UI.\n\n### Features\n\n- Live regex matching with highlighting\n- Flag toggles (g, i, m, s, u)\n- Match group inspection\n- JetBrains Mono typography\n- Dark-themed workbench UI",
       "category": "utilities",
       "tags": [
         "developer-tools",
@@ -2056,7 +2056,7 @@
       "id": "slug-generator",
       "name": "Slug Generator",
       "shortDescription": "Convert any text into a clean, SEO-friendly URL slug with customizable formatting.",
-      "longDescription": "## Slug Generator\n\nConvert titles, headings, or phrases into clean, SEO-friendly URL slugs in real time. Normalizes accented and Unicode characters, strips punctuation, and lets you customize casing, separators, and number handling.\n\n### Features\n\n- Generates slugs in real time as you type\n- Optional lowercase conversion\n- Customizable separator (hyphen or underscore)\n- Removes punctuation, special characters, and extra whitespace\n- Normalizes accented/Unicode characters (e.g. Café → cafe)\n- Option to keep or remove numbers\n- Live preview of the generated slug\n- One-click copy to the clipboard\n- Clear/reset with a single click\n- Fully responsive, keyboard accessible, and works entirely offline",
+      "longDescription": "## Slug Generator\n\nConvert titles, headings, or phrases into clean, SEO-friendly URL slugs in real time. Normalizes accented and Unicode characters, strips punctuation, and lets you customize casing, separators, and number handling.\n\n### Features\n\n- Generates slugs in real time as you type\n- Optional lowercase conversion\n- Customizable separator (hyphen or underscore)\n- Removes punctuation, special characters, and extra whitespace\n- Normalizes accented/Unicode characters (e.g. Caf\u00e9 \u2192 cafe)\n- Option to keep or remove numbers\n- Live preview of the generated slug\n- One-click copy to the clipboard\n- Clear/reset with a single click\n- Fully responsive, keyboard accessible, and works entirely offline",
       "category": "web-seo",
       "tags": [
         "developer-tools",
@@ -2148,9 +2148,9 @@
     },
     {
       "id": "tailwind-vanilla-css-converter",
-      "name": "Tailwind → Vanilla CSS Converter",
+      "name": "Tailwind \u2192 Vanilla CSS Converter",
       "shortDescription": "Paste Tailwind utility classes and get the equivalent hand-written CSS rule.",
-      "longDescription": "## Tailwind → Vanilla CSS Converter\n\nPaste a string of Tailwind utility classes and get the equivalent hand-written CSS rule. Useful for learning what a Tailwind class compiles to, or migrating a small component away from Tailwind without pulling in the framework.\n\n### Features\n\n- Editable CSS selector plus a Tailwind class input\n- Covers spacing, flex/grid layout, sizing, typography, a color palette subset, borders, radius, and shadow utilities\n- Handles responsive/state prefixes (`md:`, `hover:`) by converting the base utility with a note\n- Lists any unrecognized classes instead of failing silently\n- One-click copy of the generated CSS\n- Runs completely offline",
+      "longDescription": "## Tailwind \u2192 Vanilla CSS Converter\n\nPaste a string of Tailwind utility classes and get the equivalent hand-written CSS rule. Useful for learning what a Tailwind class compiles to, or migrating a small component away from Tailwind without pulling in the framework.\n\n### Features\n\n- Editable CSS selector plus a Tailwind class input\n- Covers spacing, flex/grid layout, sizing, typography, a color palette subset, borders, radius, and shadow utilities\n- Handles responsive/state prefixes (`md:`, `hover:`) by converting the base utility with a note\n- Lists any unrecognized classes instead of failing silently\n- One-click copy of the generated CSS\n- Runs completely offline",
       "category": "css",
       "tags": [
         "converter",
@@ -2172,7 +2172,7 @@
       "id": "tailwind-color-finder",
       "name": "Tailwind Color Finder",
       "shortDescription": "Find the closest matching Tailwind CSS color and shade for any HEX, RGB, or HSL input.",
-      "longDescription": "## Tailwind Color Finder\n\nEnter a color using a picker, HEX, RGB, or HSL, and instantly find the closest matching Tailwind CSS color and shade using RGB distance. Displays the matching utility classes and lets you browse the full default palette.\n\n### Features\n\n- Input via color picker, HEX, RGB, or HSL — all kept in sync\n- Finds the closest Tailwind color and shade (e.g. blue-500, emerald-600)\n- Shows matching bg-/text-/border-/fill-/stroke- utility classes\n- Side-by-side comparison of your color and the matched color\n- Similarity score based on color distance\n- One-click copy of any class name or hex value\n- Searchable browser for the complete Tailwind default palette\n- Fully responsive, keyboard accessible, and works entirely offline",
+      "longDescription": "## Tailwind Color Finder\n\nEnter a color using a picker, HEX, RGB, or HSL, and instantly find the closest matching Tailwind CSS color and shade using RGB distance. Displays the matching utility classes and lets you browse the full default palette.\n\n### Features\n\n- Input via color picker, HEX, RGB, or HSL \u2014 all kept in sync\n- Finds the closest Tailwind color and shade (e.g. blue-500, emerald-600)\n- Shows matching bg-/text-/border-/fill-/stroke- utility classes\n- Side-by-side comparison of your color and the matched color\n- Similarity score based on color distance\n- One-click copy of any class name or hex value\n- Searchable browser for the complete Tailwind default palette\n- Fully responsive, keyboard accessible, and works entirely offline",
       "category": "color",
       "tags": [
         "color",
@@ -2290,7 +2290,7 @@
       "id": "unicode-inspector",
       "name": "Unicode Inspector",
       "shortDescription": "Inspect every character's Unicode code point, UTF-8/UTF-16 bytes, category, and escape sequences.",
-      "longDescription": "## Unicode Inspector\n\nInspect Unicode characters in real time as you type or paste text. See each character's code point, best-effort name or category, UTF-8/UTF-16 byte representation, HTML entity, and JavaScript escape sequence — with invisible and whitespace characters flagged.\n\n### Features\n\n- Real-time character-by-character inspection\n- Unicode code point (e.g. U+1F600)\n- Character name where available, else Unicode category via native \\p{} property detection\n- UTF-8 and UTF-16 byte/code-unit representations\n- HTML entity and JavaScript Unicode escape sequences\n- Highlights invisible/whitespace characters (tabs, newlines, NBSP, zero-width spaces, BOM, etc.)\n- Total character and UTF-16 code unit counts\n- One-click copy of any code point\n- Clear/reset with a single click\n- Fully responsive, keyboard accessible, and works entirely offline",
+      "longDescription": "## Unicode Inspector\n\nInspect Unicode characters in real time as you type or paste text. See each character's code point, best-effort name or category, UTF-8/UTF-16 byte representation, HTML entity, and JavaScript escape sequence \u2014 with invisible and whitespace characters flagged.\n\n### Features\n\n- Real-time character-by-character inspection\n- Unicode code point (e.g. U+1F600)\n- Character name where available, else Unicode category via native \\p{} property detection\n- UTF-8 and UTF-16 byte/code-unit representations\n- HTML entity and JavaScript Unicode escape sequences\n- Highlights invisible/whitespace characters (tabs, newlines, NBSP, zero-width spaces, BOM, etc.)\n- Total character and UTF-16 code unit counts\n- One-click copy of any code point\n- Clear/reset with a single click\n- Fully responsive, keyboard accessible, and works entirely offline",
       "category": "text",
       "tags": [
         "character",
@@ -2339,7 +2339,7 @@
       "id": "user-agent-parser",
       "name": "User Agent Parser",
       "shortDescription": "Parse any User-Agent string into a readable breakdown of browser, engine, OS, device, and CPU architecture.",
-      "longDescription": "## User Agent Parser\n\nParse any User-Agent string — or your current browser — into a plain, readable breakdown. Identifies the browser and version, rendering engine, operating system and version, device type, and CPU architecture when available. All parsing happens entirely offline.\n\n### Features\n\n- Paste and parse any User-Agent string instantly\n- Detects browser name and version\n- Detects operating system and version (when available)\n- Detects rendering engine (Blink, Gecko, WebKit, Trident, etc.)\n- Detects device type (Desktop, Mobile, Tablet, Bot, Smart TV)\n- Displays CPU architecture when advertised\n- One-click \"Use current browser\" button to parse `navigator.userAgent`\n- Copy parsed info as formatted text or JSON\n- Clear/reset with a single click\n- Fully responsive, keyboard accessible, and works completely offline",
+      "longDescription": "## User Agent Parser\n\nParse any User-Agent string \u2014 or your current browser \u2014 into a plain, readable breakdown. Identifies the browser and version, rendering engine, operating system and version, device type, and CPU architecture when available. All parsing happens entirely offline.\n\n### Features\n\n- Paste and parse any User-Agent string instantly\n- Detects browser name and version\n- Detects operating system and version (when available)\n- Detects rendering engine (Blink, Gecko, WebKit, Trident, etc.)\n- Detects device type (Desktop, Mobile, Tablet, Bot, Smart TV)\n- Displays CPU architecture when advertised\n- One-click \"Use current browser\" button to parse `navigator.userAgent`\n- Copy parsed info as formatted text or JSON\n- Clear/reset with a single click\n- Fully responsive, keyboard accessible, and works completely offline",
       "category": "browser-network",
       "tags": [
         "browser",
@@ -2401,7 +2401,7 @@
       "id": "word-character-counter",
       "name": "Word / Character Counter",
       "shortDescription": "Real-time word, character, and sentence counter for text of any length.",
-      "longDescription": "## Word / Character Counter\n\nA minimalist, real-time text analysis tool. Type or paste text to instantly see word, character, and sentence counts — built for writers, marketers, and developers who need quick length checks without ad-heavy websites.\n\n### Features\n\n- Real-time character count (including spaces)\n- Real-time word count\n- Real-time sentence count\n- Character count excluding spaces, line count, and estimated reading time\n- Copy text or clear/reset with one click\n- Clean, responsive, minimalist interface\n- Fully functional offline with zero dependencies",
+      "longDescription": "## Word / Character Counter\n\nA minimalist, real-time text analysis tool. Type or paste text to instantly see word, character, and sentence counts \u2014 built for writers, marketers, and developers who need quick length checks without ad-heavy websites.\n\n### Features\n\n- Real-time character count (including spaces)\n- Real-time word count\n- Real-time sentence count\n- Character count excluding spaces, line count, and estimated reading time\n- Copy text or clear/reset with one click\n- Clean, responsive, minimalist interface\n- Fully functional offline with zero dependencies",
       "category": "text",
       "tags": [
         "characters",
@@ -2446,6 +2446,22 @@
       ],
       "difficulty": "Easy",
       "status": "live"
+    },
+    {
+      "id": "json-csv-bidirectional-converter",
+      "name": "JSON to CSV Converter",
+      "shortDescription": "Convert between JSON and CSV formats instantly.",
+      "longDescription": "## JSON to CSV Converter\n\nConvert JSON to CSV and vice versa.",
+      "category": "json-api",
+      "tags": [
+        "json",
+        "csv",
+        "converter"
+      ],
+      "contributor": {
+        "name": "vishwa-mistry",
+        "github": "vishwa-mistry"
+      }
     }
   ]
 }
