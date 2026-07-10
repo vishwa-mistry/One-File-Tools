@@ -1397,24 +1397,11 @@
     },
     {
       "id": "json-csv-converter",
-      "name": "JSON CSV Converter",
-      "shortDescription": "Convert between JSON and CSV formats with bidirectional conversion and custom delimiters.",
-      "longDescription": "## JSON CSV Converter\n\nA bidirectional converter between JSON arrays and CSV text, with support for custom delimiters.\n\n### Features\n\n- Two-way conversion: JSON to CSV and CSV to JSON\n- Custom delimiter support (comma, tab, semicolon, pipe)\n- Proper CSV quoting for values containing delimiters or quotes\n- Sample data buttons for quick testing\n- Live row/item count stats\n- Success feedback on conversion\n- Dark mode support via prefers-color-scheme\n- Works completely offline",
-      "category": "json-api",
-      "tags": [
-        "converter",
-        "csv",
-        "data",
-        "json",
-        "utility"
-      ],
-      "techStack": [
-        "CSS3",
-        "HTML5",
-        "Vanilla JS"
-      ],
-      "difficulty": "Easy",
-      "status": "live"
+      "name": "JSON/CSV Bidirectional Converter",
+      "shortDescription": "Instantly convert JSON arrays to CSV format, and vice versa. It will run entirely in the browser, ensuring sensitive data is never sent to a server.",
+      "link": "/tools/json-csv-converter.html",
+      "icon": "fa-exchange-alt",
+      "image": "/tools/json-csv-converter.png"
     },
     {
       "id": "json-diff-viewer",
