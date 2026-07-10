@@ -14,6 +14,8 @@
             --input-bg: #0d1117;
             --error-color: #f85149;
             --footer-text: #8b949e;
+            --line-num-bg: #161b22;
+            --line-num-color: #6e7681;
         }
 
         :root[data-theme="light"] {
@@ -25,6 +27,8 @@
             --input-bg: #ffffff;
             --error-color: #cf222e;
             --footer-text: #57606a;
+            --line-num-bg: #f6f8fa;
+            --line-num-color: #8c959f;
         }
 
         body {
@@ -147,6 +151,7 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            min-width: 0;
         }
 
         .panel-header {
@@ -176,24 +181,56 @@
             background-color: var(--border-color);
         }
 
-        textarea {
-            width: 100%;
-            height: 350px;
-            background-color: var(--input-bg);
-            color: var(--text-color);
+        /* Editor Container with Line Numbers */
+        .editor-container {
+            display: flex;
             border: 1px solid var(--border-color);
             border-radius: 6px;
+            overflow: hidden;
+            background-color: var(--input-bg);
+            height: 350px;
+            position: relative;
+        }
+
+        .line-numbers {
+            width: 40px;
+            background-color: var(--line-num-bg);
+            color: var(--line-num-color);
+            border-right: 1px solid var(--border-color);
+            padding: 12px 5px;
+            text-align: right;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow: hidden;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        .line-numbers div {
+            min-height: 21px; /* matches line-height 1.5 of 14px font */
+        }
+
+        textarea {
+            flex: 1;
+            height: 100%;
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
             padding: 12px;
             font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
             font-size: 14px;
             line-height: 1.5;
-            resize: vertical;
+            resize: none;
             box-sizing: border-box;
             outline: none;
+            white-space: pre;
+            overflow: auto;
         }
 
-        textarea:focus {
+        .editor-container:focus-within {
             border-color: var(--title-color);
+            box-shadow: 0 0 0 1px var(--title-color);
         }
 
         .convert-actions {
@@ -215,8 +252,10 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
         }
 
         .convert-btn:hover {
@@ -251,6 +290,7 @@
             margin-top: 10px;
             min-height: 20px;
             font-weight: 500;
+            word-break: break-word;
         }
 
         footer {
@@ -307,7 +347,12 @@
                     <h2 class="panel-title">JSON Input</h2>
                     <button class="action-button" onclick="loadSampleJSON()">Sample JSON</button>
                 </div>
-                <textarea id="json-input" placeholder='[&#10;  {&#10;    "name": "John Doe",&#10;    "age": 30,&#10;    "city": "New York"&#10;  }&#10;]' spellcheck="false"></textarea>
+                
+                <div class="editor-container">
+                    <div class="line-numbers" id="json-lines"><div>1</div></div>
+                    <textarea id="json-input" placeholder='[&#10;  {&#10;    "name": "John Doe",&#10;    "age": 30,&#10;    "city": "New York"&#10;  }&#10;]' spellcheck="false" wrap="off"></textarea>
+                </div>
+                
                 <div id="json-error" class="error-message"></div>
                 <div class="panel-footer">
                     <button class="primary-btn" onclick="convertJsonToCsv()">Convert to CSV &rarr;</button>
@@ -315,8 +360,8 @@
             </div>
 
             <div class="convert-actions">
-                <button class="convert-btn" onclick="convertJsonToCsv()" title="JSON to CSV">&darr; CSV &darr;</button>
-                <button class="convert-btn" onclick="convertCsvToJson()" title="CSV to JSON">&uarr; JSON &uarr;</button>
+                <button class="convert-btn" onclick="convertJsonToCsv()" title="JSON to CSV">CSV &rarr;</button>
+                <button class="convert-btn" onclick="convertCsvToJson()" title="CSV to JSON">&larr; JSON</button>
             </div>
 
             <div class="panel">
@@ -324,7 +369,12 @@
                     <h2 class="panel-title">CSV Output</h2>
                     <button class="action-button" onclick="loadSampleCSV()">Sample CSV</button>
                 </div>
-                <textarea id="csv-input" placeholder="name,age,city&#10;John Doe,30,New York" spellcheck="false"></textarea>
+                
+                <div class="editor-container">
+                    <div class="line-numbers" id="csv-lines"><div>1</div></div>
+                    <textarea id="csv-input" placeholder="name,age,city&#10;John Doe,30,New York" spellcheck="false" wrap="off"></textarea>
+                </div>
+
                 <div id="csv-error" class="error-message"></div>
                 <div class="panel-footer">
                     <button class="primary-btn" onclick="convertCsvToJson()">&larr; Convert to JSON</button>
@@ -342,6 +392,8 @@
         const csvInput = document.getElementById('csv-input');
         const jsonError = document.getElementById('json-error');
         const csvError = document.getElementById('csv-error');
+        const jsonLines = document.getElementById('json-lines');
+        const csvLines = document.getElementById('csv-lines');
         const delimiterSelect = document.getElementById('delimiter');
         const themeBtn = document.getElementById('themeBtn');
 
@@ -353,7 +405,27 @@
             themeBtn.innerHTML = newTheme === 'dark' ? '&#9728;&#65039; Light Mode' : '&#127769; Dark Mode';
         }
 
-        // Helper to unescape CSV values securely
+        // Line Numbers Logic
+        function updateLineNumbers(textarea, linesContainer) {
+            const lines = textarea.value.split('\n').length;
+            let html = '';
+            for(let i = 1; i <= Math.max(1, lines); i++) {
+                html += `<div>${i}</div>`;
+            }
+            linesContainer.innerHTML = html;
+        }
+
+        function syncScroll(textarea, linesContainer) {
+            linesContainer.scrollTop = textarea.scrollTop;
+        }
+
+        jsonInput.addEventListener('input', () => updateLineNumbers(jsonInput, jsonLines));
+        jsonInput.addEventListener('scroll', () => syncScroll(jsonInput, jsonLines));
+        
+        csvInput.addEventListener('input', () => updateLineNumbers(csvInput, csvLines));
+        csvInput.addEventListener('scroll', () => syncScroll(csvInput, csvLines));
+
+        // Format CSV values securely
         function parseCsvRow(rowStr, delimiter) {
             let row = [];
             let inQuotes = false;
@@ -391,15 +463,34 @@
         function convertJsonToCsv() {
             clearErrors();
             let jsonText = jsonInput.value.trim();
-            if (!jsonText) { csvInput.value = ''; return; }
+            if (!jsonText) { 
+                csvInput.value = ''; 
+                updateLineNumbers(csvInput, csvLines);
+                return; 
+            }
 
             try {
-                // Ensure it can parse valid JSON
+                // Try to gracefully handle fragments like "employees": [...] by wrapping them
+                if (jsonText.startsWith('"') && jsonText.includes(':')) {
+                    try {
+                        jsonText = '{' + jsonText + '}';
+                    } catch(e) {}
+                }
+
                 let data = JSON.parse(jsonText);
                 let arrayData = Array.isArray(data) ? data : [data];
                 
+                // If the object only has one key and its value is an array, unwrap it (common pattern)
+                if (arrayData.length === 1 && typeof arrayData[0] === 'object' && arrayData[0] !== null) {
+                    const keys = Object.keys(arrayData[0]);
+                    if (keys.length === 1 && Array.isArray(arrayData[0][keys[0]])) {
+                        arrayData = arrayData[0][keys[0]];
+                    }
+                }
+
                 if (arrayData.length === 0) {
                     csvInput.value = '';
+                    updateLineNumbers(csvInput, csvLines);
                     return;
                 }
 
@@ -410,7 +501,7 @@
                 const delimiter = getDelimiter();
                 const headers = Array.from(new Set(arrayData.flatMap(obj => Object.keys(obj))));
                 
-                let csvLines = [headers.map(h => h.includes(delimiter) || h.includes('"') || h.includes('\n') ? `"${h.replace(/"/g, '""')}"` : h).join(delimiter)];
+                let csvLinesArr = [headers.map(h => h.includes(delimiter) || h.includes('"') || h.includes('\n') ? `"${h.replace(/"/g, '""')}"` : h).join(delimiter)];
                 
                 arrayData.forEach(row => {
                     const rowValues = headers.map(header => {
@@ -423,10 +514,11 @@
                         }
                         return val;
                     });
-                    csvLines.push(rowValues.join(delimiter));
+                    csvLinesArr.push(rowValues.join(delimiter));
                 });
                 
-                csvInput.value = csvLines.join('\n');
+                csvInput.value = csvLinesArr.join('\n');
+                updateLineNumbers(csvInput, csvLines);
             } catch (err) {
                 jsonError.textContent = 'Invalid JSON: ' + err.message;
             }
@@ -435,7 +527,11 @@
         function convertCsvToJson() {
             clearErrors();
             const csvText = csvInput.value.trim();
-            if (!csvText) { jsonInput.value = ''; return; }
+            if (!csvText) { 
+                jsonInput.value = ''; 
+                updateLineNumbers(jsonInput, jsonLines);
+                return; 
+            }
             
             if (csvText.startsWith('{') || csvText.startsWith('[')) {
                 csvError.textContent = 'Error: The input seems to be JSON format. Please use JSON to CSV.';
@@ -445,7 +541,6 @@
             try {
                 const delimiter = getDelimiter();
                 
-                // Advanced CSV Parser to handle newlines inside quotes
                 const rows = [];
                 let currentRow = [];
                 let currentCell = '';
@@ -466,7 +561,7 @@
                         currentRow.push(currentCell);
                         currentCell = '';
                     } else if ((char === '\n' || char === '\r') && !inQuotes) {
-                        if (char === '\r' && nextChar === '\n') i++; // skip \n
+                        if (char === '\r' && nextChar === '\n') i++;
                         currentRow.push(currentCell);
                         rows.push(currentRow);
                         currentRow = [];
@@ -481,7 +576,6 @@
                     rows.push(currentRow);
                 }
                 
-                // Remove empty trailing rows
                 while (rows.length > 0 && rows[rows.length - 1].length === 1 && rows[rows.length - 1][0].trim() === '') {
                     rows.pop();
                 }
@@ -516,6 +610,7 @@
                 }
                 
                 jsonInput.value = JSON.stringify(jsonData, null, 2);
+                updateLineNumbers(jsonInput, jsonLines);
             } catch (err) {
                 csvError.textContent = 'Invalid CSV: ' + err.message;
             }
@@ -537,15 +632,22 @@
                 }
             ];
             jsonInput.value = JSON.stringify(sample, null, 2);
+            updateLineNumbers(jsonInput, jsonLines);
             clearErrors();
         }
 
         function loadSampleCSV() {
             const sample = `id,name,role,active\n1,Jane Doe,Developer,true\n2,John Smith,Designer,false`;
             csvInput.value = sample;
+            updateLineNumbers(csvInput, csvLines);
             clearErrors();
             delimiterSelect.value = ",";
         }
+
+        // Initialize line numbers
+        updateLineNumbers(jsonInput, jsonLines);
+        updateLineNumbers(csvInput, csvLines);
+
     </script>
 </body>
 </html>
