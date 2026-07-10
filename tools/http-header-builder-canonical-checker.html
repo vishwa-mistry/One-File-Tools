@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,15 +6,17 @@
     <meta name="description" content="Construct HTTP headers interactively, validate values (Authorization, Content-Type, Cache-Control), check canonical casing, and export clean fetch, curl, and python structures." />
     <title>HTTP Header Builder & Canonicalization Checker — One File Tools</title>
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
     <style>
       /* ========================================
        Reset & Design Tokens
        ======================================== */
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -27,34 +29,34 @@
         --panel-border: rgba(255, 255, 255, 0.08);
         --panel-border-strong: rgba(255, 255, 255, 0.16);
         --panel-soft: rgba(255, 255, 255, 0.03);
-        
+
         --text-main: #f3f4f6;
         --text-muted: #9ca3af;
         --text-subtle: #6b7280;
-        
+
         --color-primary: #06b6d4; /* Cyan */
         --color-primary-hover: #0891b2;
         --color-primary-glow: rgba(6, 182, 212, 0.25);
-        
+
         --color-success: #10b981;
         --color-success-bg: rgba(16, 185, 129, 0.1);
         --color-success-glow: rgba(16, 185, 129, 0.2);
-        
+
         --color-warning: #f59e0b;
         --color-warning-bg: rgba(245, 158, 11, 0.1);
         --color-warning-glow: rgba(245, 158, 11, 0.2);
-        
+
         --color-danger: #ef4444;
         --color-danger-bg: rgba(239, 68, 68, 0.1);
         --color-danger-glow: rgba(239, 68, 68, 0.2);
-        
+
         --color-info: #6366f1; /* Indigo */
         --color-info-bg: rgba(99, 102, 241, 0.1);
-        
+
         --shadow-glow: 0 0 20px rgba(6, 182, 212, 0.15);
         --radius: 12px;
-        --mono: 'JetBrains Mono', monospace;
-        --sans: 'Plus Jakarta Sans', sans-serif;
+        --mono: "JetBrains Mono", monospace;
+        --sans: "Plus Jakarta Sans", sans-serif;
       }
 
       body {
@@ -200,7 +202,8 @@
         flex-wrap: wrap;
       }
 
-      button, .file-upload-label {
+      button,
+      .file-upload-label {
         background: var(--panel-soft);
         border: 1px solid var(--panel-border);
         color: var(--text-main);
@@ -217,13 +220,15 @@
         user-select: none;
       }
 
-      button:hover, .file-upload-label:hover {
+      button:hover,
+      .file-upload-label:hover {
         background: rgba(255, 255, 255, 0.08);
         border-color: var(--panel-border-strong);
         transform: translateY(-1px);
       }
 
-      button:active, .file-upload-label:active {
+      button:active,
+      .file-upload-label:active {
         transform: translateY(0);
       }
 
@@ -275,7 +280,7 @@
       }
 
       .select-wrapper::after {
-        content: '▼';
+        content: "▼";
         font-size: 0.65rem;
         color: var(--text-muted);
         position: absolute;
@@ -401,7 +406,7 @@
       }
 
       .row-checkbox:checked::after {
-        content: '✓';
+        content: "✓";
         color: white;
         font-size: 11px;
         font-weight: 800;
@@ -448,9 +453,18 @@
         background: var(--text-subtle);
       }
 
-      .status-indicator-dot.success { background: var(--color-success); box-shadow: 0 0 6px var(--color-success); }
-      .status-indicator-dot.warning { background: var(--color-warning); box-shadow: 0 0 6px var(--color-warning); }
-      .status-indicator-dot.danger { background: var(--color-danger); box-shadow: 0 0 6px var(--color-danger); }
+      .status-indicator-dot.success {
+        background: var(--color-success);
+        box-shadow: 0 0 6px var(--color-success);
+      }
+      .status-indicator-dot.warning {
+        background: var(--color-warning);
+        box-shadow: 0 0 6px var(--color-warning);
+      }
+      .status-indicator-dot.danger {
+        background: var(--color-danger);
+        box-shadow: 0 0 6px var(--color-danger);
+      }
 
       .row-delete-col {
         display: flex;
@@ -498,7 +512,7 @@
         max-height: 180px;
         overflow-y: auto;
         z-index: 50;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
       }
 
       .autocomplete-item {
@@ -510,10 +524,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid rgba(255,255,255,0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       }
 
-      .autocomplete-item:hover, .autocomplete-item.highlighted {
+      .autocomplete-item:hover,
+      .autocomplete-item.highlighted {
         background: rgba(6, 182, 212, 0.15);
         color: #fff;
       }
@@ -596,9 +611,15 @@
         font-family: var(--mono);
       }
 
-      .stat-card.card-err .stat-value { color: var(--color-danger); }
-      .stat-card.card-warn .stat-value { color: var(--color-warning); }
-      .stat-card.card-ok .stat-value { color: var(--color-success); }
+      .stat-card.card-err .stat-value {
+        color: var(--color-danger);
+      }
+      .stat-card.card-warn .stat-value {
+        color: var(--color-warning);
+      }
+      .stat-card.card-ok .stat-value {
+        color: var(--color-success);
+      }
 
       .stat-indicator-bar {
         position: absolute;
@@ -609,10 +630,18 @@
         background: transparent;
       }
 
-      .stat-card.card-err .stat-indicator-bar { background: var(--color-danger); }
-      .stat-card.card-warn .stat-indicator-bar { background: var(--color-warning); }
-      .stat-card.card-ok .stat-indicator-bar { background: var(--color-success); }
-      .stat-card.card-neutral .stat-indicator-bar { background: var(--color-primary); }
+      .stat-card.card-err .stat-indicator-bar {
+        background: var(--color-danger);
+      }
+      .stat-card.card-warn .stat-indicator-bar {
+        background: var(--color-warning);
+      }
+      .stat-card.card-ok .stat-indicator-bar {
+        background: var(--color-success);
+      }
+      .stat-card.card-neutral .stat-indicator-bar {
+        background: var(--color-primary);
+      }
 
       /* ========================================
        Tab Controls
@@ -649,7 +678,7 @@
 
       .tab-btn:hover {
         color: var(--text-main);
-        background: rgba(255,255,255,0.02);
+        background: rgba(255, 255, 255, 0.02);
         transform: none;
       }
 
@@ -667,8 +696,13 @@
         color: white;
       }
 
-      .bg-danger { background: var(--color-danger); }
-      .bg-warning { background: var(--color-warning); color: #000; }
+      .bg-danger {
+        background: var(--color-danger);
+      }
+      .bg-warning {
+        background: var(--color-warning);
+        color: #000;
+      }
 
       .tab-panel {
         display: none;
@@ -708,8 +742,12 @@
         border-color: var(--panel-border-strong);
       }
 
-      .issue-item.err { border-left: 4px solid var(--color-danger); }
-      .issue-item.warn { border-left: 4px solid var(--color-warning); }
+      .issue-item.err {
+        border-left: 4px solid var(--color-danger);
+      }
+      .issue-item.warn {
+        border-left: 4px solid var(--color-warning);
+      }
 
       .issue-meta {
         flex-grow: 1;
@@ -729,7 +767,7 @@
         font-weight: 700;
         padding: 2px 6px;
         border-radius: 4px;
-        background: rgba(255,255,255,0.06);
+        background: rgba(255, 255, 255, 0.06);
         color: #fff;
       }
 
@@ -856,13 +894,29 @@
       }
 
       /* Code styling */
-      .hl-header-name { color: #f7768e; font-weight: 600; }
-      .hl-header-value { color: #e0af68; }
-      .hl-colon { color: #89ddff; }
-      .hl-quote { color: #9ece6a; }
-      .hl-comment { color: #565f89; font-style: italic; }
-      .hl-curl-cmd { color: #00f2fe; }
-      .hl-curl-flag { color: #bb9af3; }
+      .hl-header-name {
+        color: #f7768e;
+        font-weight: 600;
+      }
+      .hl-header-value {
+        color: #e0af68;
+      }
+      .hl-colon {
+        color: #89ddff;
+      }
+      .hl-quote {
+        color: #9ece6a;
+      }
+      .hl-comment {
+        color: #565f89;
+        font-style: italic;
+      }
+      .hl-curl-cmd {
+        color: #00f2fe;
+      }
+      .hl-curl-flag {
+        color: #bb9af3;
+      }
 
       .preview-actions {
         display: flex;
@@ -887,7 +941,9 @@
         color: #fff;
         font-weight: 600;
         font-size: 0.88rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.2);
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 15px rgba(6, 182, 212, 0.2);
         display: flex;
         align-items: center;
         gap: 8px;
@@ -902,8 +958,15 @@
         opacity: 1;
       }
 
-      .toast-success { border-color: var(--color-success); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(16, 185, 129, 0.2); }
-      .toast-success svg { color: var(--color-success); }
+      .toast-success {
+        border-color: var(--color-success);
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 15px rgba(16, 185, 129, 0.2);
+      }
+      .toast-success svg {
+        color: var(--color-success);
+      }
 
       /* ========================================
        Footer Styling
@@ -941,14 +1004,14 @@
     <header>
       <div class="header-title-area">
         <div class="eyebrow">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
           Developer Utilities
         </div>
         <h1>HTTP Header Builder & Canonicalization Checker</h1>
         <p>Build HTTP request headers interactively. Inspect validations for common authorization structures, detect duplicates, and generate clean configurations.</p>
       </div>
       <div class="privacy-badge">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 6a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-4 9c0-2.67 5.33-4 8-4s8 1.33 8 4v2H8v-2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 6a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-4 9c0-2.67 5.33-4 8-4s8 1.33 8 4v2H8v-2z" /></svg>
         Local Processing • Zero Data Uploads
       </div>
     </header>
@@ -958,7 +1021,7 @@
       <section class="panel">
         <div class="panel-header">
           <div class="panel-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg>
             Interactive Header Builder
           </div>
           <div class="toolbar-spacer"></div>
@@ -974,7 +1037,6 @@
           </div>
         </div>
         <div class="panel-body">
-          
           <!-- Protocol Mode selection banner -->
           <div class="protocol-banner">
             <div class="protocol-title">
@@ -989,26 +1051,22 @@
 
           <div class="toolbar">
             <button type="button" class="primary" id="btn-add-header" title="Add new header field row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
               Add Header Row
             </button>
-            <button type="button" id="btn-normalize-casing" title="Canonicalize casing of active header fields">
-              Normalize Header Casing
-            </button>
-            <button type="button" id="btn-deduplicate" title="Deduplicate variables (keeps last, or merges comma-separated)">
-              Resolve Duplicates
-            </button>
+            <button type="button" id="btn-normalize-casing" title="Canonicalize casing of active header fields">Normalize Header Casing</button>
+            <button type="button" id="btn-deduplicate" title="Deduplicate variables (keeps last, or merges comma-separated)">Resolve Duplicates</button>
             <div class="toolbar-spacer"></div>
-            <button type="button" class="danger" id="btn-clear-all" title="Clear all builders">
-              Clear All
-            </button>
+            <button type="button" class="danger" id="btn-clear-all" title="Clear all builders">Clear All</button>
           </div>
 
           <!-- The Builder Rows Container -->
           <div class="headers-list-container" id="headers-list">
             <!-- Populated dynamically via JavaScript -->
           </div>
-
         </div>
       </section>
 
@@ -1016,14 +1074,16 @@
       <section class="panel">
         <div class="panel-header">
           <div class="panel-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
             Header Audit & Code Generator
           </div>
         </div>
-        <div class="panel-body" style="padding: 0; display: flex; flex-direction: column;">
-          
+        <div class="panel-body" style="padding: 0; display: flex; flex-direction: column">
           <!-- Summary Metrics Cards -->
-          <div style="padding: 20px 20px 0;">
+          <div style="padding: 20px 20px 0">
             <div class="stats-grid">
               <div class="stat-card card-neutral">
                 <span class="stat-label">Total Fields</span>
@@ -1055,18 +1115,10 @@
                 Audit Warnings
                 <span class="tab-badge bg-danger" id="badge-tab-audit">0</span>
               </button>
-              <button type="button" class="tab-btn" data-tab="tab-raw" id="btn-tab-raw">
-                Raw HTTP Block
-              </button>
-              <button type="button" class="tab-btn" data-tab="tab-curl" id="btn-tab-curl">
-                curl Flags
-              </button>
-              <button type="button" class="tab-btn" data-tab="tab-fetch" id="btn-tab-fetch">
-                fetch (JS)
-              </button>
-              <button type="button" class="tab-btn" data-tab="tab-python" id="btn-tab-python">
-                requests (Py)
-              </button>
+              <button type="button" class="tab-btn" data-tab="tab-raw" id="btn-tab-raw">Raw HTTP Block</button>
+              <button type="button" class="tab-btn" data-tab="tab-curl" id="btn-tab-curl">curl Flags</button>
+              <button type="button" class="tab-btn" data-tab="tab-fetch" id="btn-tab-fetch">fetch (JS)</button>
+              <button type="button" class="tab-btn" data-tab="tab-python" id="btn-tab-python">requests (Py)</button>
             </div>
 
             <!-- Tab 1: Audit Warnings -->
@@ -1074,8 +1126,11 @@
               <div class="issues-scroller" id="audit-list">
                 <!-- Populated dynamically -->
               </div>
-              <div class="no-issues-placeholder" id="no-issues-card" style="display: none;">
-                <svg class="no-issues-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div class="no-issues-placeholder" id="no-issues-card" style="display: none">
+                <svg class="no-issues-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
                 <h3>All Checks Passed</h3>
                 <p>No header syntax, casing, duplicate, or format warnings were detected.</p>
               </div>
@@ -1132,16 +1187,17 @@
                 <pre class="preview-code" id="code-python"></pre>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
     </main>
 
     <!-- Toast Component -->
     <div id="toast-notify" class="toast">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="toast-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="toast-icon">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
       <span id="toast-message">Action completed successfully!</span>
     </div>
 
@@ -1155,125 +1211,125 @@
     <script>
       // Common headers database
       const COMMON_HEADERS = [
-        { name: 'Accept', example: 'application/json, text/plain, */*', desc: 'MIME types acceptable for response response.' },
-        { name: 'Accept-Encoding', example: 'gzip, deflate, br', desc: 'Encoding algorithms acceptable in response.' },
-        { name: 'Accept-Language', example: 'en-US,en;q=0.9', desc: 'Acceptable human languages for response.' },
-        { name: 'Authorization', example: 'Bearer token12345', desc: 'Authentication credentials for the request.' },
-        { name: 'Cache-Control', example: 'no-cache, no-store, must-revalidate', desc: 'Directives for caching mechanisms.' },
-        { name: 'Connection', example: 'keep-alive', desc: 'Control options for current network connection.' },
-        { name: 'Content-Length', example: '1024', desc: 'Size of request payload in bytes.' },
-        { name: 'Content-Type', example: 'application/json; charset=utf-8', desc: 'MIME type of the payload request body.' },
-        { name: 'Cookie', example: 'session_id=xyz987', desc: 'HTTP cookies previously sent by the server.' },
-        { name: 'Host', example: 'api.example.com', desc: 'Host domain name and optional port.' },
-        { name: 'Origin', example: 'https://example.com', desc: 'Origin domain that initiated CORS request.' },
-        { name: 'Referer', example: 'https://example.com/login', desc: 'Previous web page referrer URL.' },
-        { name: 'User-Agent', example: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', desc: 'User agent identifier string.' },
-        { name: 'X-API-Key', example: 'key_abcdef123', desc: 'Custom header for application API keys.' },
-        { name: 'X-Forwarded-For', example: '192.0.2.1', desc: 'Original client IP address in proxy chains.' },
-        { name: 'X-Requested-With', example: 'XMLHttpRequest', desc: 'Identifies AJAX requests.' }
+        { name: "Accept", example: "application/json, text/plain, */*", desc: "MIME types acceptable for response response." },
+        { name: "Accept-Encoding", example: "gzip, deflate, br", desc: "Encoding algorithms acceptable in response." },
+        { name: "Accept-Language", example: "en-US,en;q=0.9", desc: "Acceptable human languages for response." },
+        { name: "Authorization", example: "Bearer token12345", desc: "Authentication credentials for the request." },
+        { name: "Cache-Control", example: "no-cache, no-store, must-revalidate", desc: "Directives for caching mechanisms." },
+        { name: "Connection", example: "keep-alive", desc: "Control options for current network connection." },
+        { name: "Content-Length", example: "1024", desc: "Size of request payload in bytes." },
+        { name: "Content-Type", example: "application/json; charset=utf-8", desc: "MIME type of the payload request body." },
+        { name: "Cookie", example: "session_id=xyz987", desc: "HTTP cookies previously sent by the server." },
+        { name: "Host", example: "api.example.com", desc: "Host domain name and optional port." },
+        { name: "Origin", example: "https://example.com", desc: "Origin domain that initiated CORS request." },
+        { name: "Referer", example: "https://example.com/login", desc: "Previous web page referrer URL." },
+        { name: "User-Agent", example: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", desc: "User agent identifier string." },
+        { name: "X-API-Key", example: "key_abcdef123", desc: "Custom header for application API keys." },
+        { name: "X-Forwarded-For", example: "192.0.2.1", desc: "Original client IP address in proxy chains." },
+        { name: "X-Requested-With", example: "XMLHttpRequest", desc: "Identifies AJAX requests." }
       ];
 
       // Header Presets
       const PRESETS = {
-        'json-api': [
-          { name: 'Host', value: 'api.example.com', enabled: true },
-          { name: 'Accept', value: 'application/json', enabled: true },
-          { name: 'Content-Type', value: 'application/json; charset=utf-8', enabled: true },
-          { name: 'User-Agent', value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', enabled: true }
+        "json-api": [
+          { name: "Host", value: "api.example.com", enabled: true },
+          { name: "Accept", value: "application/json", enabled: true },
+          { name: "Content-Type", value: "application/json; charset=utf-8", enabled: true },
+          { name: "User-Agent", value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", enabled: true }
         ],
-        'cors-authorized': [
-          { name: 'Host', value: 'api.example.com', enabled: true },
-          { name: 'Authorization', value: 'Bearer eYJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9', enabled: true },
-          { name: 'Origin', value: 'https://webapp.local', enabled: true },
-          { name: 'Accept', value: '*/*', enabled: true }
+        "cors-authorized": [
+          { name: "Host", value: "api.example.com", enabled: true },
+          { name: "Authorization", value: "Bearer eYJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", enabled: true },
+          { name: "Origin", value: "https://webapp.local", enabled: true },
+          { name: "Accept", value: "*/*", enabled: true }
         ],
-        'form-post': [
-          { name: 'Host', value: 'form.example.com', enabled: true },
-          { name: 'Content-Type', value: 'application/x-www-form-urlencoded', enabled: true },
-          { name: 'Content-Length', value: '47', enabled: true },
-          { name: 'Cache-Control', value: 'no-cache', enabled: true }
+        "form-post": [
+          { name: "Host", value: "form.example.com", enabled: true },
+          { name: "Content-Type", value: "application/x-www-form-urlencoded", enabled: true },
+          { name: "Content-Length", value: "47", enabled: true },
+          { name: "Cache-Control", value: "no-cache", enabled: true }
         ],
-        'no-cache': [
-          { name: 'Host', value: 'static.example.com', enabled: true },
-          { name: 'Cache-Control', value: 'no-store, no-cache, must-revalidate', enabled: true },
-          { name: 'Connection', value: 'close', enabled: true }
+        "no-cache": [
+          { name: "Host", value: "static.example.com", enabled: true },
+          { name: "Cache-Control", value: "no-store, no-cache, must-revalidate", enabled: true },
+          { name: "Connection", value: "close", enabled: true }
         ],
-        'empty': []
+        empty: []
       };
 
       // State variables
-      let protocolMode = 'http1'; // 'http1' or 'http2'
+      let protocolMode = "http1"; // 'http1' or 'http2'
       let headersListState = []; // Array of { id, name, value, enabled }
       let nextRowId = 1;
 
       // DOM Elements
-      const headersListContainer = document.getElementById('headers-list');
-      const btnAddHeader = document.getElementById('btn-add-header');
-      const btnNormalizeCasing = document.getElementById('btn-normalize-casing');
-      const btnDeduplicate = document.getElementById('btn-deduplicate');
-      const btnClearAll = document.getElementById('btn-clear-all');
-      const presetSelector = document.getElementById('preset-selector');
+      const headersListContainer = document.getElementById("headers-list");
+      const btnAddHeader = document.getElementById("btn-add-header");
+      const btnNormalizeCasing = document.getElementById("btn-normalize-casing");
+      const btnDeduplicate = document.getElementById("btn-deduplicate");
+      const btnClearAll = document.getElementById("btn-clear-all");
+      const presetSelector = document.getElementById("preset-selector");
 
       // Statistics
-      const statTotalFields = document.getElementById('stat-total-fields');
-      const statActiveFields = document.getElementById('stat-active-fields');
-      const statWarnings = document.getElementById('stat-warnings');
-      const statErrors = document.getElementById('stat-errors');
+      const statTotalFields = document.getElementById("stat-total-fields");
+      const statActiveFields = document.getElementById("stat-active-fields");
+      const statWarnings = document.getElementById("stat-warnings");
+      const statErrors = document.getElementById("stat-errors");
 
       // Tabs & Code Previews
-      const tabButtons = document.querySelectorAll('.tab-btn');
-      const tabPanels = document.querySelectorAll('.tab-panel');
-      const auditList = document.getElementById('audit-list');
-      const noIssuesCard = document.getElementById('no-issues-card');
-      const badgeTabAudit = document.getElementById('badge-tab-audit');
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const tabPanels = document.querySelectorAll(".tab-panel");
+      const auditList = document.getElementById("audit-list");
+      const noIssuesCard = document.getElementById("no-issues-card");
+      const badgeTabAudit = document.getElementById("badge-tab-audit");
 
-      const codeRaw = document.getElementById('code-raw');
-      const codeCurl = document.getElementById('code-curl');
-      const codeFetch = document.getElementById('code-fetch');
-      const codePython = document.getElementById('code-python');
+      const codeRaw = document.getElementById("code-raw");
+      const codeCurl = document.getElementById("code-curl");
+      const codeFetch = document.getElementById("code-fetch");
+      const codePython = document.getElementById("code-python");
 
       // Toast Notifications
-      const toastNotify = document.getElementById('toast-notify');
-      const toastMessage = document.getElementById('toast-message');
-      const toastIcon = document.getElementById('toast-icon');
+      const toastNotify = document.getElementById("toast-notify");
+      const toastMessage = document.getElementById("toast-message");
+      const toastIcon = document.getElementById("toast-icon");
 
       // Init application
-      window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("DOMContentLoaded", () => {
         // Tab routing
-        tabButtons.forEach(btn => {
-          btn.addEventListener('click', () => {
-            tabButtons.forEach(b => b.classList.remove('active'));
-            tabPanels.forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+        tabButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            tabButtons.forEach((b) => b.classList.remove("active"));
+            tabPanels.forEach((p) => p.classList.remove("active"));
+            btn.classList.add("active");
+            document.getElementById(btn.getAttribute("data-tab")).classList.add("active");
           });
         });
 
         // Event hooks
-        btnAddHeader.addEventListener('click', () => {
-          addNewRow('', '', true);
+        btnAddHeader.addEventListener("click", () => {
+          addNewRow("", "", true);
           evaluateHeaders();
         });
 
-        btnNormalizeCasing.addEventListener('click', () => {
+        btnNormalizeCasing.addEventListener("click", () => {
           normalizeAllCasing();
         });
 
-        btnDeduplicate.addEventListener('click', () => {
+        btnDeduplicate.addEventListener("click", () => {
           resolveDuplicateHeaders();
         });
 
-        btnClearAll.addEventListener('click', () => {
+        btnClearAll.addEventListener("click", () => {
           headersListState = [];
           renderBuilderRows();
           evaluateHeaders();
-          showToast('All headers cleared.', 'neutral');
+          showToast("All headers cleared.", "neutral");
         });
 
-        presetSelector.addEventListener('change', (e) => {
+        presetSelector.addEventListener("change", (e) => {
           const list = PRESETS[e.target.value];
           if (list) {
-            headersListState = list.map(item => ({
+            headersListState = list.map((item) => ({
               id: nextRowId++,
               name: item.name,
               value: item.value,
@@ -1281,29 +1337,29 @@
             }));
             renderBuilderRows();
             evaluateHeaders();
-            showToast('Preset loaded successfully.', 'success');
+            showToast("Preset loaded successfully.", "success");
           }
-          presetSelector.value = '';
+          presetSelector.value = "";
         });
 
         // Initialize with default preset
-        loadPreset('json-api');
+        loadPreset("json-api");
       });
 
       // Set target protocol mode
-      window.setProtocolMode = function(mode) {
+      window.setProtocolMode = function (mode) {
         protocolMode = mode;
-        document.getElementById('mode-http1').classList.toggle('active', mode === 'http1');
-        document.getElementById('mode-http2').classList.toggle('active', mode === 'http2');
+        document.getElementById("mode-http1").classList.toggle("active", mode === "http1");
+        document.getElementById("mode-http2").classList.toggle("active", mode === "http2");
         evaluateHeaders();
-        showToast(`Protocol target switched to ${mode === 'http1' ? 'HTTP/1.1' : 'HTTP/2+'} rules.`, 'neutral');
+        showToast(`Protocol target switched to ${mode === "http1" ? "HTTP/1.1" : "HTTP/2+"} rules.`, "neutral");
       };
 
       // Load a preset
       function loadPreset(key) {
         const list = PRESETS[key];
         if (list) {
-          headersListState = list.map(item => ({
+          headersListState = list.map((item) => ({
             id: nextRowId++,
             name: item.name,
             value: item.value,
@@ -1315,7 +1371,7 @@
       }
 
       // Add a single builder row
-      function addNewRow(name = '', value = '', enabled = true) {
+      function addNewRow(name = "", value = "", enabled = true) {
         const id = nextRowId++;
         headersListState.push({ id, name, value, enabled });
         renderSingleRow(id, name, value, enabled);
@@ -1323,8 +1379,8 @@
 
       // Render all elements in builders array
       function renderBuilderRows() {
-        headersListContainer.innerHTML = '';
-        headersListState.forEach(row => {
+        headersListContainer.innerHTML = "";
+        headersListState.forEach((row) => {
           renderSingleRow(row.id, row.name, row.value, row.enabled);
         });
 
@@ -1336,15 +1392,15 @@
       // Append row to HTML DOM
       function renderSingleRow(id, name, value, enabled) {
         // remove empty notice if present
-        const emptyNotice = headersListContainer.querySelector('.empty-list-notice');
+        const emptyNotice = headersListContainer.querySelector(".empty-list-notice");
         if (emptyNotice) emptyNotice.remove();
 
-        const rowDiv = document.createElement('div');
-        rowDiv.className = `header-row ${enabled ? '' : 'disabled'}`;
+        const rowDiv = document.createElement("div");
+        rowDiv.className = `header-row ${enabled ? "" : "disabled"}`;
         rowDiv.id = `row-${id}`;
         rowDiv.innerHTML = `
           <div class="row-checkbox-col">
-            <input type="checkbox" class="row-checkbox" id="check-${id}" ${enabled ? 'checked' : ''} onchange="toggleRowEnabled(${id}, this.checked)" aria-label="Enable or disable header field">
+            <input type="checkbox" class="row-checkbox" id="check-${id}" ${enabled ? "checked" : ""} onchange="toggleRowEnabled(${id}, this.checked)" aria-label="Enable or disable header field">
           </div>
           <div class="row-input-col">
             <input type="text" class="row-input" id="name-${id}" value="${escapeHtml(name)}" placeholder="Header-Name" oninput="updateRowName(${id}, this.value)" autocomplete="off" aria-label="Header Name">
@@ -1367,21 +1423,21 @@
       }
 
       // Event handlers for fields
-      window.toggleRowEnabled = function(id, checked) {
-        const row = headersListState.find(r => r.id === id);
+      window.toggleRowEnabled = function (id, checked) {
+        const row = headersListState.find((r) => r.id === id);
         if (row) {
           row.enabled = checked;
-          document.getElementById(`row-${id}`).classList.toggle('disabled', !checked);
+          document.getElementById(`row-${id}`).classList.toggle("disabled", !checked);
           evaluateHeaders();
         }
       };
 
-      window.updateRowName = function(id, val) {
-        const row = headersListState.find(r => r.id === id);
+      window.updateRowName = function (id, val) {
+        const row = headersListState.find((r) => r.id === id);
         if (row) {
           row.name = val;
           // Auto update example placeholder when typing complete match
-          const known = COMMON_HEADERS.find(h => h.name.toLowerCase() === val.trim().toLowerCase());
+          const known = COMMON_HEADERS.find((h) => h.name.toLowerCase() === val.trim().toLowerCase());
           if (known) {
             document.getElementById(`value-${id}`).placeholder = `e.g. ${known.example}`;
           }
@@ -1389,16 +1445,16 @@
         }
       };
 
-      window.updateRowValue = function(id, val) {
-        const row = headersListState.find(r => r.id === id);
+      window.updateRowValue = function (id, val) {
+        const row = headersListState.find((r) => r.id === id);
         if (row) {
           row.value = val;
           evaluateHeaders();
         }
       };
 
-      window.deleteRow = function(id) {
-        headersListState = headersListState.filter(r => r.id !== id);
+      window.deleteRow = function (id) {
+        headersListState = headersListState.filter((r) => r.id !== id);
         const rowEl = document.getElementById(`row-${id}`);
         if (rowEl) rowEl.remove();
 
@@ -1413,18 +1469,18 @@
         const input = document.getElementById(`name-${id}`);
         const dropdown = document.getElementById(`dropdown-${id}`);
 
-        input.addEventListener('focus', () => {
+        input.addEventListener("focus", () => {
           showAutocompleteSuggestions(id, input.value);
         });
 
-        input.addEventListener('input', () => {
+        input.addEventListener("input", () => {
           showAutocompleteSuggestions(id, input.value);
         });
 
         // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
+        document.addEventListener("click", (e) => {
           if (e.target !== input && !dropdown.contains(e.target)) {
-            dropdown.style.display = 'none';
+            dropdown.style.display = "none";
           }
         });
       }
@@ -1434,34 +1490,34 @@
         const q = query.trim().toLowerCase();
 
         // filter headers list
-        const matches = COMMON_HEADERS.filter(h => h.name.toLowerCase().includes(q));
+        const matches = COMMON_HEADERS.filter((h) => h.name.toLowerCase().includes(q));
 
         if (matches.length === 0) {
-          dropdown.style.display = 'none';
+          dropdown.style.display = "none";
           return;
         }
 
-        dropdown.innerHTML = '';
-        dropdown.style.display = 'block';
+        dropdown.innerHTML = "";
+        dropdown.style.display = "block";
 
-        matches.forEach(match => {
-          const div = document.createElement('div');
-          div.className = 'autocomplete-item';
+        matches.forEach((match) => {
+          const div = document.createElement("div");
+          div.className = "autocomplete-item";
           div.innerHTML = `
             <span class="autocomplete-item-name">${escapeHtml(match.name)}</span>
             <span class="autocomplete-item-desc">${escapeHtml(match.desc)}</span>
           `;
-          div.addEventListener('click', () => {
+          div.addEventListener("click", () => {
             // Fill
             const input = document.getElementById(`name-${id}`);
             input.value = match.name;
             updateRowName(id, match.name);
-            
+
             // set placeholder
             const valInput = document.getElementById(`value-${id}`);
             valInput.placeholder = `e.g. ${match.example}`;
-            
-            dropdown.style.display = 'none';
+
+            dropdown.style.display = "none";
           });
           dropdown.appendChild(div);
         });
@@ -1469,25 +1525,25 @@
 
       // Canonical Header Name generator
       function getCanonicalName(name) {
-        if (!name) return '';
+        if (!name) return "";
         const trimmed = name.trim();
-        if (protocolMode === 'http2') {
+        if (protocolMode === "http2") {
           return trimmed.toLowerCase();
         }
         // HTTP/1.1 Pascal-Case canonicalization: Content-Type, X-API-Key, etc.
         // Rule: split by hyphens, capitalize first char of each word except some custom exceptions (e.g. SSL, API, RFC)
-        const parts = trimmed.split('-');
-        const normalizedParts = parts.map(part => {
-          if (part.toLowerCase() === 'api') return 'API';
-          if (part.toLowerCase() === 'id') return 'ID';
-          if (part.toLowerCase() === 'ip') return 'IP';
-          if (part.toLowerCase() === 'ssl') return 'SSL';
-          if (part.toLowerCase() === 'url') return 'URL';
-          
-          if (part.length === 0) return '';
+        const parts = trimmed.split("-");
+        const normalizedParts = parts.map((part) => {
+          if (part.toLowerCase() === "api") return "API";
+          if (part.toLowerCase() === "id") return "ID";
+          if (part.toLowerCase() === "ip") return "IP";
+          if (part.toLowerCase() === "ssl") return "SSL";
+          if (part.toLowerCase() === "url") return "URL";
+
+          if (part.length === 0) return "";
           return part[0].toUpperCase() + part.slice(1).toLowerCase();
         });
-        return normalizedParts.join('-');
+        return normalizedParts.join("-");
       }
 
       // Auditing and Evaluation Logic
@@ -1504,8 +1560,8 @@
         const rowErrors = {}; // rowId -> 'success' | 'warning' | 'danger'
         const rowMsg = {}; // rowId -> array of string message
 
-        headersListState.forEach(row => {
-          rowErrors[row.id] = 'success';
+        headersListState.forEach((row) => {
+          rowErrors[row.id] = "success";
           rowMsg[row.id] = [];
 
           if (!row.enabled) return;
@@ -1515,17 +1571,17 @@
           const val = row.value;
 
           // Check for empty name
-          if (name === '') {
+          if (name === "") {
             errorCount++;
-            rowErrors[row.id] = 'danger';
-            rowMsg[row.id].push('Error: Header name cannot be empty.');
+            rowErrors[row.id] = "danger";
+            rowMsg[row.id].push("Error: Header name cannot be empty.");
             auditIssues.push({
               rowId: row.id,
-              key: 'Empty Header',
-              severity: 'Error',
-              code: 'EMPTY_FIELD',
-              message: 'Syntax Error: Left side of header assignment is empty.',
-              fix: { type: 'delete_row', label: 'Delete Row' }
+              key: "Empty Header",
+              severity: "Error",
+              code: "EMPTY_FIELD",
+              message: "Syntax Error: Left side of header assignment is empty.",
+              fix: { type: "delete_row", label: "Delete Row" }
             });
             return;
           }
@@ -1536,15 +1592,15 @@
           const keyPattern = /^[A-Za-z0-9\-\!\#\$\%\&\’\*\+\.\^\_\`\|\~]+$/;
           if (!keyPattern.test(name)) {
             errorCount++;
-            rowErrors[row.id] = 'danger';
-            rowMsg[row.id].push('Error: Header name contains invalid characters.');
+            rowErrors[row.id] = "danger";
+            rowMsg[row.id].push("Error: Header name contains invalid characters.");
             auditIssues.push({
               rowId: row.id,
               key: name,
-              severity: 'Error',
-              code: 'INVALID_NAME_CHARS',
+              severity: "Error",
+              code: "INVALID_NAME_CHARS",
               message: `Syntax Error: Header name "${name}" contains forbidden ASCII separator characters.`,
-              fix: { type: 'sanitize_name', label: 'Sanitize Header Name' }
+              fix: { type: "sanitize_name", label: "Sanitize Header Name" }
             });
           }
 
@@ -1552,15 +1608,15 @@
           const canonical = getCanonicalName(name);
           if (name !== canonical) {
             warningCount++;
-            if (rowErrors[row.id] !== 'danger') rowErrors[row.id] = 'warning';
-            rowMsg[row.id].push(`Warning: Casing is not canonical for ${protocolMode === 'http1' ? 'HTTP/1.1' : 'HTTP/2+'}.`);
+            if (rowErrors[row.id] !== "danger") rowErrors[row.id] = "warning";
+            rowMsg[row.id].push(`Warning: Casing is not canonical for ${protocolMode === "http1" ? "HTTP/1.1" : "HTTP/2+"}.`);
             auditIssues.push({
               rowId: row.id,
               key: name,
-              severity: 'Warning',
-              code: 'CASING_MISMATCH',
-              message: `Casing Violation: Header "${name}" is not canonical. Under ${protocolMode === 'http1' ? 'HTTP/1.1 Pascal-Case' : 'HTTP/2+ lower-case'}, it should be "${canonical}".`,
-              fix: { type: 'fix_casing', label: 'Normalize Name Casing' }
+              severity: "Warning",
+              code: "CASING_MISMATCH",
+              message: `Casing Violation: Header "${name}" is not canonical. Under ${protocolMode === "http1" ? "HTTP/1.1 Pascal-Case" : "HTTP/2+ lower-case"}, it should be "${canonical}".`,
+              fix: { type: "fix_casing", label: "Normalize Name Casing" }
             });
           }
 
@@ -1573,12 +1629,12 @@
 
           // Value validations for common fields
           validateCommonHeaderValue(row.id, lowerName, val, (type, code, msg, fixObj) => {
-            if (type === 'Error') {
+            if (type === "Error") {
               errorCount++;
-              rowErrors[row.id] = 'danger';
-            } else if (type === 'Warning') {
+              rowErrors[row.id] = "danger";
+            } else if (type === "Warning") {
               warningCount++;
-              if (rowErrors[row.id] !== 'danger') rowErrors[row.id] = 'warning';
+              if (rowErrors[row.id] !== "danger") rowErrors[row.id] = "warning";
             }
             rowMsg[row.id].push(`${type}: ${msg}`);
             auditIssues.push({
@@ -1593,20 +1649,20 @@
         });
 
         // Duplicate evaluation
-        Object.keys(activeHeadersMap).forEach(lowerName => {
+        Object.keys(activeHeadersMap).forEach((lowerName) => {
           const list = activeHeadersMap[lowerName];
           if (list.length > 1) {
             // duplicate detected
             // Determine header merging behaviour (comma-separated vs single value override)
-            const singleValHeaders = ['authorization', 'content-length', 'content-type', 'host', 'user-agent', 'referer'];
+            const singleValHeaders = ["authorization", "content-length", "content-type", "host", "user-agent", "referer"];
             const isSingleVal = singleValHeaders.includes(lowerName);
 
             // Mark warnings for earlier rows that get overridden
             for (let i = 0; i < list.length - 1; i++) {
               const r = list[i];
               warningCount++;
-              if (rowErrors[r.id] !== 'danger') rowErrors[r.id] = 'warning';
-              
+              if (rowErrors[r.id] !== "danger") rowErrors[r.id] = "warning";
+
               const activeLineId = list[list.length - 1].id;
               let msg = `Duplicate Warning: Header "${r.name}" is declared multiple times. `;
               if (isSingleVal) {
@@ -1619,10 +1675,10 @@
               auditIssues.push({
                 rowId: r.id,
                 key: r.name,
-                severity: 'Warning',
-                code: 'DUPLICATE_HEADER',
+                severity: "Warning",
+                code: "DUPLICATE_HEADER",
                 message: msg,
-                fix: { type: 'deduplicate', label: 'Deduplicate Headers' }
+                fix: { type: "deduplicate", label: "Deduplicate Headers" }
               });
             }
 
@@ -1641,34 +1697,32 @@
         statErrors.textContent = errorCount;
 
         // Render row colors
-        headersListState.forEach(row => {
+        headersListState.forEach((row) => {
           const dot = document.getElementById(`dot-${row.id}`);
           if (dot) {
-            dot.className = `status-indicator-dot ${row.enabled ? rowErrors[row.id] : ''}`;
-            
+            dot.className = `status-indicator-dot ${row.enabled ? rowErrors[row.id] : ""}`;
+
             // set row tooltip description
-            const titleMsg = rowMsg[row.id].join('\n');
-            dot.parentElement.title = titleMsg || 'Valid Field';
+            const titleMsg = rowMsg[row.id].join("\n");
+            dot.parentElement.title = titleMsg || "Valid Field";
           }
         });
 
         // Render Audit Issues Tab list
         badgeTabAudit.textContent = auditIssues.length;
         if (auditIssues.length === 0) {
-          auditList.style.display = 'none';
-          noIssuesCard.style.display = 'flex';
-          badgeTabAudit.style.display = 'none';
+          auditList.style.display = "none";
+          noIssuesCard.style.display = "flex";
+          badgeTabAudit.style.display = "none";
         } else {
-          auditList.style.display = 'flex';
-          noIssuesCard.style.display = 'none';
-          badgeTabAudit.style.display = 'inline-block';
-          
-          let listHtml = '';
-          auditIssues.forEach(issue => {
-            const sevClass = issue.severity.toLowerCase() === 'error' ? 'err' : 'warn';
-            const btnHtml = issue.fix 
-              ? `<div class="issue-fix-area"><button class="fix-btn" onclick="applyQuickFix(${issue.rowId}, '${issue.fix.type}')">${issue.fix.label}</button></div>`
-              : '';
+          auditList.style.display = "flex";
+          noIssuesCard.style.display = "none";
+          badgeTabAudit.style.display = "inline-block";
+
+          let listHtml = "";
+          auditIssues.forEach((issue) => {
+            const sevClass = issue.severity.toLowerCase() === "error" ? "err" : "warn";
+            const btnHtml = issue.fix ? `<div class="issue-fix-area"><button class="fix-btn" onclick="applyQuickFix(${issue.rowId}, '${issue.fix.type}')">${issue.fix.label}</button></div>` : "";
             listHtml += `
               <div class="issue-item ${sevClass}">
                 <div class="issue-meta">
@@ -1694,94 +1748,82 @@
       function validateCommonHeaderValue(rowId, name, val, callback) {
         const cleanVal = val.trim();
 
-        if (name === 'authorization') {
-          if (cleanVal === '') {
-            callback('Warning', 'EMPTY_AUTH', 'Authorization value should not be empty.', { type: 'fill_bearer_placeholder' });
+        if (name === "authorization") {
+          if (cleanVal === "") {
+            callback("Warning", "EMPTY_AUTH", "Authorization value should not be empty.", { type: "fill_bearer_placeholder" });
             return;
           }
           // Schemas: Bearer, Basic, Digest, ApiKey, AWS, etc.
           const authRegex = /^(Bearer|Basic|Digest|ApiKey|AWS|OAuth)\s+(.+)$/i;
           const match = cleanVal.match(authRegex);
           if (!match) {
-            callback('Warning', 'INVALID_AUTH_SCHEME', 'Authorization value should start with a valid HTTP authentication scheme (e.g. Bearer <token>, Basic <base64>).', { type: 'add_bearer_prefix' });
+            callback("Warning", "INVALID_AUTH_SCHEME", "Authorization value should start with a valid HTTP authentication scheme (e.g. Bearer <token>, Basic <base64>).", { type: "add_bearer_prefix" });
           } else {
             const scheme = match[1].toLowerCase();
             const token = match[2];
-            if (scheme === 'basic') {
+            if (scheme === "basic") {
               // check base64 format
               const base64Regex = /^[A-Za-z0-9+/=]+$/;
               if (!base64Regex.test(token) || token.length % 4 !== 0) {
-                callback('Error', 'INVALID_BASIC_BASE64', 'Basic auth parameter must be a valid Base64 encoded string.');
+                callback("Error", "INVALID_BASIC_BASE64", "Basic auth parameter must be a valid Base64 encoded string.");
               }
             }
           }
-        }
-
-        else if (name === 'content-type') {
-          if (cleanVal === '') {
-            callback('Warning', 'EMPTY_CONTENT_TYPE', 'Content-Type should specify a media type.', { type: 'set_json_content_type' });
+        } else if (name === "content-type") {
+          if (cleanVal === "") {
+            callback("Warning", "EMPTY_CONTENT_TYPE", "Content-Type should specify a media type.", { type: "set_json_content_type" });
             return;
           }
           // MIME check: e.g. text/html, application/json, multipart/form-data
           const typeMatch = cleanVal.match(/^([a-zA-Z0-9\-+.]+)\/([a-zA-Z0-9\-+.]+)(.*)$/);
           if (!typeMatch) {
-            callback('Error', 'INVALID_MIME', 'Content-Type must contain a valid MIME format (e.g. type/subtype).');
+            callback("Error", "INVALID_MIME", "Content-Type must contain a valid MIME format (e.g. type/subtype).");
           } else {
             const params = typeMatch[3];
-            if (params && !params.startsWith(';') && params.trim() !== '') {
-              callback('Warning', 'MISSING_MIME_SEMICOLON', 'Media type parameters (like charset) should be separated by a semicolon (;).', { type: 'fix_mime_semicolon' });
+            if (params && !params.startsWith(";") && params.trim() !== "") {
+              callback("Warning", "MISSING_MIME_SEMICOLON", "Media type parameters (like charset) should be separated by a semicolon (;).", { type: "fix_mime_semicolon" });
             }
           }
-        }
-
-        else if (name === 'cache-control') {
-          if (cleanVal === '') return;
+        } else if (name === "cache-control") {
+          if (cleanVal === "") return;
           // check if directives are recognized
-          const validDirectives = ['no-cache', 'no-store', 'must-revalidate', 'public', 'private', 'no-transform', 'immutable', 'only-if-cached'];
-          const parts = cleanVal.split(',');
-          parts.forEach(part => {
-            const directive = part.trim().split('=')[0].toLowerCase();
-            if (!validDirectives.includes(directive) && !directive.startsWith('max-age') && !directive.startsWith('s-maxage')) {
-              callback('Warning', 'UNKNOWN_CACHE_DIRECTIVE', `Unknown Cache-Control directive detected: "${directive}".`);
+          const validDirectives = ["no-cache", "no-store", "must-revalidate", "public", "private", "no-transform", "immutable", "only-if-cached"];
+          const parts = cleanVal.split(",");
+          parts.forEach((part) => {
+            const directive = part.trim().split("=")[0].toLowerCase();
+            if (!validDirectives.includes(directive) && !directive.startsWith("max-age") && !directive.startsWith("s-maxage")) {
+              callback("Warning", "UNKNOWN_CACHE_DIRECTIVE", `Unknown Cache-Control directive detected: "${directive}".`);
             }
           });
-        }
-
-        else if (name === 'content-length') {
+        } else if (name === "content-length") {
           const numRegex = /^\d+$/;
           if (!numRegex.test(cleanVal)) {
-            callback('Error', 'INVALID_CONTENT_LENGTH', 'Content-Length must be a non-negative integer.');
+            callback("Error", "INVALID_CONTENT_LENGTH", "Content-Length must be a non-negative integer.");
           }
-        }
-
-        else if (name === 'host') {
-          if (cleanVal === '') {
-            callback('Error', 'EMPTY_HOST', 'Host header must not be empty.');
+        } else if (name === "host") {
+          if (cleanVal === "") {
+            callback("Error", "EMPTY_HOST", "Host header must not be empty.");
             return;
           }
           const hostRegex = /^[a-zA-Z0-9\-\.]+(:\d+)?$/;
           const ipv6Regex = /^\[[0-9a-fA-F:]+\](:\d+)?$/;
           if (!hostRegex.test(cleanVal) && !ipv6Regex.test(cleanVal)) {
-            callback('Warning', 'INVALID_HOST_FORMAT', 'Host header contains unexpected characters or format.');
+            callback("Warning", "INVALID_HOST_FORMAT", "Host header contains unexpected characters or format.");
           }
-        }
-
-        else if (name === 'connection') {
+        } else if (name === "connection") {
           const connVal = cleanVal.toLowerCase();
-          const validConns = ['keep-alive', 'close', 'upgrade'];
-          if (connVal !== '' && !validConns.includes(connVal)) {
-            callback('Warning', 'NON_STANDARD_CONNECTION', `Non-standard Connection value: "${cleanVal}".`);
+          const validConns = ["keep-alive", "close", "upgrade"];
+          if (connVal !== "" && !validConns.includes(connVal)) {
+            callback("Warning", "NON_STANDARD_CONNECTION", `Non-standard Connection value: "${cleanVal}".`);
           }
-        }
-
-        else if (name === 'cookie') {
-          if (cleanVal === '') return;
+        } else if (name === "cookie") {
+          if (cleanVal === "") return;
           // Cookies format: key=val; key2=val2
-          const pairs = cleanVal.split(';');
+          const pairs = cleanVal.split(";");
           for (let i = 0; i < pairs.length; i++) {
             const pair = pairs[i].trim();
-            if (pair !== '' && !pair.includes('=')) {
-              callback('Warning', 'INVALID_COOKIE_PAIR', 'Cookie string contains variables not structured as key=value pairs separated by semicolons.');
+            if (pair !== "" && !pair.includes("=")) {
+              callback("Warning", "INVALID_COOKIE_PAIR", "Cookie string contains variables not structured as key=value pairs separated by semicolons.");
               break;
             }
           }
@@ -1789,45 +1831,35 @@
       }
 
       // Quick Fix implementation
-      window.applyQuickFix = function(rowId, fixType) {
-        const row = headersListState.find(r => r.id === rowId);
+      window.applyQuickFix = function (rowId, fixType) {
+        const row = headersListState.find((r) => r.id === rowId);
         if (!row) return;
 
-        if (fixType === 'delete_row') {
+        if (fixType === "delete_row") {
           deleteRow(rowId);
           return;
         }
 
-        if (fixType === 'sanitize_name') {
+        if (fixType === "sanitize_name") {
           // replace separators
-          let name = row.name.replace(/[\(\)\<\>\@\,\;\:\\\"\/\[\]\?\=\{\}\s]/g, '-');
-          name = name.replace(/-+/g, '-').replace(/^-|-$/g, '');
+          let name = row.name.replace(/[\(\)\<\>\@\,\;\:\\\"\/\[\]\?\=\{\}\s]/g, "-");
+          name = name.replace(/-+/g, "-").replace(/^-|-$/g, "");
           row.name = name;
           document.getElementById(`name-${rowId}`).value = name;
-        }
-
-        else if (fixType === 'fix_casing') {
+        } else if (fixType === "fix_casing") {
           const norm = getCanonicalName(row.name);
           row.name = norm;
           document.getElementById(`name-${rowId}`).value = norm;
-        }
-
-        else if (fixType === 'add_bearer_prefix') {
+        } else if (fixType === "add_bearer_prefix") {
           row.value = `Bearer ${row.value}`;
           document.getElementById(`value-${rowId}`).value = row.value;
-        }
-
-        else if (fixType === 'fill_bearer_placeholder') {
-          row.value = 'Bearer <token>';
+        } else if (fixType === "fill_bearer_placeholder") {
+          row.value = "Bearer <token>";
           document.getElementById(`value-${rowId}`).value = row.value;
-        }
-
-        else if (fixType === 'set_json_content_type') {
-          row.value = 'application/json; charset=utf-8';
+        } else if (fixType === "set_json_content_type") {
+          row.value = "application/json; charset=utf-8";
           document.getElementById(`value-${rowId}`).value = row.value;
-        }
-
-        else if (fixType === 'fix_mime_semicolon') {
+        } else if (fixType === "fix_mime_semicolon") {
           // replace spaces with semicolon before parameters
           let clean = row.value.trim();
           const match = clean.match(/^([a-zA-Z0-9\-+.]+)\/([a-zA-Z0-9\-+.]+)\s+(.+)$/);
@@ -1835,54 +1867,52 @@
             row.value = `${match[1]}/${match[2]}; ${match[3]}`;
             document.getElementById(`value-${rowId}`).value = row.value;
           }
-        }
-
-        else if (fixType === 'deduplicate') {
+        } else if (fixType === "deduplicate") {
           resolveDuplicateHeaders();
           return; // resolveDuplicateHeaders calls evaluateHeaders
         }
 
         evaluateHeaders();
-        showToast('Quick fix applied.', 'success');
+        showToast("Quick fix applied.", "success");
       };
 
       // Canonicalize Casing button logic
       function normalizeAllCasing() {
         if (headersListState.length === 0) {
-          showToast('No headers to normalize.', 'error');
+          showToast("No headers to normalize.", "error");
           return;
         }
-        headersListState.forEach(row => {
-          if (row.name.trim() !== '') {
+        headersListState.forEach((row) => {
+          if (row.name.trim() !== "") {
             const canonical = getCanonicalName(row.name);
             row.name = canonical;
             document.getElementById(`name-${row.id}`).value = canonical;
           }
         });
         evaluateHeaders();
-        showToast('All header casing normalized successfully.', 'success');
+        showToast("All header casing normalized successfully.", "success");
       }
 
       // Deduplicate fields (Comma-separating multi-values, removing duplicates for single-values)
       function resolveDuplicateHeaders() {
         if (headersListState.length === 0) {
-          showToast('No headers to deduplicate.', 'error');
+          showToast("No headers to deduplicate.", "error");
           return;
         }
 
         const grouped = {};
-        headersListState.forEach(row => {
-          if (!row.enabled || row.name.trim() === '') return;
+        headersListState.forEach((row) => {
+          if (!row.enabled || row.name.trim() === "") return;
           const lower = row.name.trim().toLowerCase();
           if (!grouped[lower]) grouped[lower] = [];
           grouped[lower].push(row);
         });
 
-        const singleValHeaders = ['authorization', 'content-length', 'content-type', 'host', 'user-agent', 'referer'];
+        const singleValHeaders = ["authorization", "content-length", "content-type", "host", "user-agent", "referer"];
         const rowsToDelete = new Set();
         const rowsToUpdate = {};
 
-        Object.keys(grouped).forEach(lower => {
+        Object.keys(grouped).forEach((lower) => {
           const list = grouped[lower];
           if (list.length > 1) {
             const isSingleVal = singleValHeaders.includes(lower);
@@ -1893,7 +1923,10 @@
               }
             } else {
               // Merge all values with comma, keep the last row, delete others
-              const combinedVal = list.map(item => item.value.trim()).filter(v => v !== '').join(', ');
+              const combinedVal = list
+                .map((item) => item.value.trim())
+                .filter((v) => v !== "")
+                .join(", ");
               const lastItem = list[list.length - 1];
               rowsToUpdate[lastItem.id] = combinedVal;
               for (let i = 0; i < list.length - 1; i++) {
@@ -1904,12 +1937,12 @@
         });
 
         if (rowsToDelete.size === 0 && Object.keys(rowsToUpdate).length === 0) {
-          showToast('No duplicate headers found.', 'neutral');
+          showToast("No duplicate headers found.", "neutral");
           return;
         }
 
         // Apply mutations
-        headersListState = headersListState.filter(row => {
+        headersListState = headersListState.filter((row) => {
           if (rowsToDelete.has(row.id)) {
             const el = document.getElementById(`row-${row.id}`);
             if (el) el.remove();
@@ -1924,7 +1957,7 @@
         });
 
         evaluateHeaders();
-        showToast('Duplicate headers resolved/merged.', 'success');
+        showToast("Duplicate headers resolved/merged.", "success");
       }
 
       // Pre-compile canonical list
@@ -1933,10 +1966,10 @@
         const seen = {};
 
         // To generate clean output, we group duplicate multi-valued fields or override single fields
-        const singleValHeaders = ['authorization', 'content-length', 'content-type', 'host', 'user-agent', 'referer'];
+        const singleValHeaders = ["authorization", "content-length", "content-type", "host", "user-agent", "referer"];
 
-        headersListState.forEach(row => {
-          if (!row.enabled || row.name.trim() === '') return;
+        headersListState.forEach((row) => {
+          if (!row.enabled || row.name.trim() === "") return;
           const canonicalName = getCanonicalName(row.name);
           const lower = canonicalName.toLowerCase();
           const cleanVal = row.value.trim();
@@ -1958,9 +1991,9 @@
         });
 
         // compile final output format
-        return list.map(item => ({
+        return list.map((item) => ({
           name: item.name,
-          value: item.values.filter(v => v !== '').join(', ')
+          value: item.values.filter((v) => v !== "").join(", ")
         }));
       }
 
@@ -1978,8 +2011,8 @@
           return;
         }
 
-        let rawText = '';
-        activeHeaders.forEach(h => {
+        let rawText = "";
+        activeHeaders.forEach((h) => {
           rawText += `<span class="hl-header-name">${escapeHtml(h.name)}</span><span class="hl-colon">:</span> <span class="hl-header-value">${escapeHtml(h.value)}</span>\r\n`;
         });
         codeRaw.innerHTML = rawText;
@@ -1989,7 +2022,7 @@
         activeHeaders.forEach((h, idx) => {
           const isLast = idx === activeHeaders.length - 1;
           const escapedVal = h.value.replace(/"/g, '\\"');
-          curlText += `  <span class="hl-curl-flag">-H</span> <span class="hl-quote">"${escapeHtml(h.name)}: ${escapeHtml(escapedVal)}"</span>${isLast ? '' : ' \\'}\n`;
+          curlText += `  <span class="hl-curl-flag">-H</span> <span class="hl-quote">"${escapeHtml(h.name)}: ${escapeHtml(escapedVal)}"</span>${isLast ? "" : " \\"}\n`;
         });
         curlText += `  https://api.example.com/endpoint`;
         codeCurl.innerHTML = curlText;
@@ -1999,7 +2032,7 @@
         activeHeaders.forEach((h, idx) => {
           const isLast = idx === activeHeaders.length - 1;
           const escapedVal = h.value.replace(/"/g, '\\"');
-          fetchText += `  <span class="hl-quote">"${escapeHtml(h.name)}"</span><span class="hl-colon">:</span> <span class="hl-quote">"${escapeHtml(escapedVal)}"</span>${isLast ? '' : ','}\n`;
+          fetchText += `  <span class="hl-quote">"${escapeHtml(h.name)}"</span><span class="hl-colon">:</span> <span class="hl-quote">"${escapeHtml(escapedVal)}"</span>${isLast ? "" : ","}\n`;
         });
         fetchText += `<span class="hl-quote">}</span>;\n\n<span style="color: #00f2fe;">fetch</span><span style="color: #9ece6a;">(</span><span class="hl-quote">'https://api.example.com/endpoint'</span>, <span style="color: #9ece6a;">{</span>\n  headers\n<span style="color: #9ece6a;">}</span><span style="color: #9ece6a;">)</span>;`;
         codeFetch.innerHTML = fetchText;
@@ -2009,103 +2042,94 @@
         activeHeaders.forEach((h, idx) => {
           const isLast = idx === activeHeaders.length - 1;
           const escapedVal = h.value.replace(/'/g, "\\'");
-          pythonText += `    <span class="hl-quote">'${escapeHtml(h.name)}'</span><span class="hl-colon">:</span> <span class="hl-quote">'${escapeHtml(escapedVal)}'</span>${isLast ? '' : ','}\n`;
+          pythonText += `    <span class="hl-quote">'${escapeHtml(h.name)}'</span><span class="hl-colon">:</span> <span class="hl-quote">'${escapeHtml(escapedVal)}'</span>${isLast ? "" : ","}\n`;
         });
         pythonText += `<span class="hl-quote">}</span>\n\nresponse <span style="color: #89ddff;">=</span> requests.<span style="color: #00f2fe;">get</span><span style="color: #9ece6a;">(</span><span class="hl-quote">'https://api.example.com/endpoint'</span>, headers<span style="color: #89ddff;">=</span>headers<span style="color: #9ece6a;">)</span>`;
         codePython.innerHTML = pythonText;
       }
 
       // Copy buttons implementation
-      window.copyTabContent = function(tabKey) {
-        let text = '';
+      window.copyTabContent = function (tabKey) {
+        let text = "";
         const list = getCanonicalActiveHeaders();
         if (list.length === 0) {
-          showToast('Nothing to copy!', 'error');
+          showToast("Nothing to copy!", "error");
           return;
         }
 
-        if (tabKey === 'raw') {
-          list.forEach(h => {
+        if (tabKey === "raw") {
+          list.forEach((h) => {
             text += `${h.name}: ${h.value}\r\n`;
           });
-        }
-
-        else if (tabKey === 'curl') {
-          text = 'curl \\\n';
+        } else if (tabKey === "curl") {
+          text = "curl \\\n";
           list.forEach((h, idx) => {
             const isLast = idx === list.length - 1;
             const escapedVal = h.value.replace(/"/g, '\\"');
-            text += `  -H "${h.name}: ${escapedVal}"${isLast ? '' : ' \\'}\n`;
+            text += `  -H "${h.name}: ${escapedVal}"${isLast ? "" : " \\"}\n`;
           });
-          text += '  https://api.example.com/endpoint';
-        }
-
-        else if (tabKey === 'fetch') {
-          text = 'const headers = {\n';
+          text += "  https://api.example.com/endpoint";
+        } else if (tabKey === "fetch") {
+          text = "const headers = {\n";
           list.forEach((h, idx) => {
             const isLast = idx === list.length - 1;
             const escapedVal = h.value.replace(/"/g, '\\"');
-            text += `  "${h.name}": "${escapedVal}"${isLast ? '' : ','}\n`;
+            text += `  "${h.name}": "${escapedVal}"${isLast ? "" : ","}\n`;
           });
-          text += '};\n\nfetch(\'https://api.example.com/endpoint\', {\n  headers\n});';
-        }
-
-        else if (tabKey === 'python') {
-          text = 'headers = {\n';
+          text += "};\n\nfetch('https://api.example.com/endpoint', {\n  headers\n});";
+        } else if (tabKey === "python") {
+          text = "headers = {\n";
           list.forEach((h, idx) => {
             const isLast = idx === list.length - 1;
             const escapedVal = h.value.replace(/'/g, "\\'");
-            text += `    '${h.name}': '${escapedVal}'${isLast ? '' : ','}\n`;
+            text += `    '${h.name}': '${escapedVal}'${isLast ? "" : ","}\n`;
           });
-          text += '}\n\nresponse = requests.get(\'https://api.example.com/endpoint\', headers=headers)';
+          text += "}\n\nresponse = requests.get('https://api.example.com/endpoint', headers=headers)";
         }
 
-        navigator.clipboard.writeText(text).then(() => {
-          showToast('Copied to clipboard!', 'success');
-        }).catch(() => {
-          showToast('Copy failed. Please try copying manually.', 'error');
-        });
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            showToast("Copied to clipboard!", "success");
+          })
+          .catch(() => {
+            showToast("Copy failed. Please try copying manually.", "error");
+          });
       };
 
       // Toast Notifications
-      function showToast(message, type = 'success') {
+      function showToast(message, type = "success") {
         toastMessage.textContent = message;
-        toastNotify.className = 'toast'; // reset
-        
-        if (type === 'success') {
-          toastNotify.classList.add('toast-success');
-          toastIcon.style.display = 'block';
-        } else if (type === 'error') {
-          toastNotify.style.borderColor = 'var(--color-danger)';
-          toastNotify.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(239, 68, 68, 0.2)';
-          toastIcon.style.display = 'none'; // hide checkmark icon on err
+        toastNotify.className = "toast"; // reset
+
+        if (type === "success") {
+          toastNotify.classList.add("toast-success");
+          toastIcon.style.display = "block";
+        } else if (type === "error") {
+          toastNotify.style.borderColor = "var(--color-danger)";
+          toastNotify.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(239, 68, 68, 0.2)";
+          toastIcon.style.display = "none"; // hide checkmark icon on err
         } else {
-          toastNotify.style.borderColor = 'var(--color-primary)';
-          toastIcon.style.display = 'none';
+          toastNotify.style.borderColor = "var(--color-primary)";
+          toastIcon.style.display = "none";
         }
-        
-        toastNotify.classList.add('show');
-        
+
+        toastNotify.classList.add("show");
+
         // Hide after 3.2 seconds
         if (window.toastTimeout) {
           clearTimeout(window.toastTimeout);
         }
         window.toastTimeout = setTimeout(() => {
-          toastNotify.classList.remove('show');
+          toastNotify.classList.remove("show");
         }, 3200);
       }
 
       // Escaper utility
       function escapeHtml(str) {
-        if (!str) return '';
-        return str
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
+        if (!str) return "";
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
       }
-
     </script>
   </body>
 </html>
